@@ -1,0 +1,1 @@
+{"version":3,"sources":["../dev/Line.js"],"names":[],"mappings":";;;;IAAM,IAAI,GACN,SADE,IAAI,CACM,IAAI,EAAE;0BADhB,IAAI;;AAEF,QAAI,CAAC,IAAI,GAAG,IAAI,CAAC;CACpB","file":"Line.js","sourcesContent":["class Line {\r\n    constructor(game) {\r\n        this.game = game;\r\n    }\r\n}"]}

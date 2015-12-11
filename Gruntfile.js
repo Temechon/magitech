@@ -10,7 +10,8 @@ module.exports = function (grunt) {
         // Compilation from ES6 to ES5 with Babel
         babel: {
             options: {
-                sourceMap: true
+                sourceMap: true,
+                presets: ['es2015']
             },
             dist: {
                 files: [{
@@ -111,6 +112,17 @@ module.exports = function (grunt) {
                 watchTask: true,
                 server: {
                     baseDir: "./"
+                }
+            }
+        },
+        // GIT STUFF
+        gitadd: {
+            task: {
+                options: {
+                    add:true
+                },
+                files: {
+                    src: ['test.txt']
                 }
             }
         }
