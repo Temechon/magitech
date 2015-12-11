@@ -1,0 +1,1 @@
+{"version":3,"sources":["../dev/Cell.js"],"names":[],"mappings":";;;;;;;;IAAM,IAAI;cAAJ,IAAI;;AAEK,aAFT,IAAI,CAEM,IAAI,EAAE;8BAFhB,IAAI;;AAGF,mCAHF,IAAI,6CAGI,IAAI,EAAE;KACf;;WAJC,IAAI;GAAS,UAAU","file":"Cell.js","sourcesContent":["class Cell extends GameObject{\r\n\r\n    constructor(game) {\r\n        super(game);\r\n    }\r\n\r\n}"]}

@@ -1,15 +1,16 @@
 module.exports = function (grunt) {
 
+    require('time-grunt')(grunt);
+
     // load all grunt tasks
-    require('load-grunt-tasks')(grunt);
+    require('jit-grunt')(grunt);
 
     grunt.initConfig({
 
         // Compilation from ES6 to ES5 with Babel
         babel: {
             options: {
-                sourceMap: true,
-                presets: ['es2015']
+                sourceMap: true
             },
             dist: {
                 files: [{
@@ -64,7 +65,6 @@ module.exports = function (grunt) {
         // Sass compilation. Produce an extended css file in css folder
         sass : {
             options: {
-                cacheLocation: '.tmp/.sass-cache',
                 sourcemap:'none',
                 style: 'expanded'
             },
