@@ -3,7 +3,11 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
 
     // load all grunt tasks
-    require('jit-grunt')(grunt);
+    require('jit-grunt')(grunt,{
+        gitadd: 'grunt-git',
+        gitcommit: 'grunt-git',
+        gitpush: 'grunt-git'
+    });
 
     grunt.initConfig({
 
@@ -117,22 +121,42 @@ module.exports = function (grunt) {
         },
         // GIT STUFF
         gitadd: {
-            task: {
+            options: {
+                verbose: true,
+                force:false,
+                add:true
+            },
+
+            magitech: {
                 options: {
-                    add:true
+                    cwd: "./"
                 },
                 files: {
-                    src: ['test.txt']
+                    src: ["./"]
+                }
+            }
+        },
+        gitcommit: {
+            task: {
+                options: {
+                    verbose: true,
+                    message: grunt.option('msg')
+                }
+            }
+        },
+        gitpush: {
+            task: {
+                options: {
                 }
             }
         }
 
-    });
+});
 
-    grunt.registerTask('default', 'Watch source files', [
-        'browserSync',
-        'watch'
-    ]);
+grunt.registerTask('default', 'Watch source files', [
+    'browserSync',
+    'watch'
+]);
 
     grunt.registerTask('dev', 'build dev version', [
         'babel',
@@ -145,7 +169,17 @@ module.exports = function (grunt) {
         'dev',
         'htmlmin',
         'uglify'
-    ])
+    ]);
+
+    grunt.registerTask('commit', 'Commit with message', function(msg) {
+        grunt.task.run('gitcommit -msg="' + msg +'"');
+    });
+
+    grunt.registerTask('git', 'Add, commit and push on github', [
+        'gitadd',
+        'htmlmin',
+        'uglify'
+    ]);
 };
 
 
