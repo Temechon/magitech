@@ -1,6 +1,3 @@
-var VERSION = 1.0,
-    AUTHOR = "temechon@pixelcodr.com";
-
 // The function onload is loaded when the DOM has been loaded
 window.addEventListener("DOMContentLoaded", function() {
     new Game('gamecanvas');

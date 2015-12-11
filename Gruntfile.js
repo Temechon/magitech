@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         watch : {
             js : {
                 files: ['src/js/dev/**/*.js'],
-                tasks: ['babel', 'uglify:debug']
+                tasks: ['babel']
             },
             sass : {
                 files: ['sass/**/*.scss'],
@@ -48,20 +48,8 @@ module.exports = function (grunt) {
                 }
             }
         },
-        // Build
+        // Build dist version
         uglify : {
-            // Build debug version
-            debug: {
-                options: {
-                    width: 80,
-                    mangle:false,
-                    beautify: true
-                },
-                files: {
-                    'js/index.js': ['src/js/dist/**/*.js']
-                }
-            },
-            // Build dist version
             dist: {
                 options: {
                     options: {
@@ -135,18 +123,16 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('dev', 'build dev version', [
+        'babel',
         'sass',
         'postcss:debug',
-        'bake',
-        'uglify:debug'
+        'bake'
     ]);
 
     grunt.registerTask('dist', 'build dist version', [
-        'sass',
-        'postcss:dist',
-        'bake',
+        'dev',
         'htmlmin',
-        'uglify:dist'
+        'uglify'
     ])
 };
 
