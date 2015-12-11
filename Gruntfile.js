@@ -171,14 +171,10 @@ grunt.registerTask('default', 'Watch source files', [
         'uglify'
     ]);
 
-    grunt.registerTask('commit', 'Commit with message', function(msg) {
-        grunt.task.run('gitcommit -msg="' + msg +'"');
-    });
-
     grunt.registerTask('git', 'Add, commit and push on github', [
         'gitadd',
-        'htmlmin',
-        'uglify'
+        'gitcommit',
+        'gitpush'
     ]);
 };
 
