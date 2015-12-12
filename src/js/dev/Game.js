@@ -22,6 +22,8 @@ class Game {
         });
         this.run();
 
+        this.gui = new Gui(this);
+
     }
     _initScene() {
 
@@ -64,14 +66,25 @@ class Game {
     }
 
     _initGame() {
-        var pos = BABYLON.Vector3.Zero();
+
+        let box = BABYLON.Mesh.CreateBox("", 1, this.scene);
+
+        let pos = BABYLON.Vector3.Zero();
         for (let l=0; l<5; l++) {
             new Line(this, 10, pos);
             pos.z += 1;
         }
 
 
-        //this.scene.debugLayer.show();
+        this.scene.debugLayer.show();
+    }
+
+    createTower() {
+        // Create tower
+        let tower = new Tower(this);
+
+        // Make tower follow mouse cursor
+
     }
 
 }

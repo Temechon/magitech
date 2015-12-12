@@ -29,6 +29,8 @@ var Game = (function () {
                         _this.engine.resize();
                 });
                 this.run();
+
+                this.gui = new Gui(this);
         }
 
         _createClass(Game, [{
@@ -77,13 +79,24 @@ var Game = (function () {
         }, {
                 key: "_initGame",
                 value: function _initGame() {
+
+                        var box = BABYLON.Mesh.CreateBox("", 1, this.scene);
+
                         var pos = BABYLON.Vector3.Zero();
                         for (var l = 0; l < 5; l++) {
                                 new Line(this, 10, pos);
                                 pos.z += 1;
                         }
 
-                        //this.scene.debugLayer.show();
+                        this.scene.debugLayer.show();
+                }
+        }, {
+                key: "createTower",
+                value: function createTower() {
+                        // Create tower
+                        var tower = new Tower(this);
+
+                        // Make tower follow mouse cursor
                 }
         }]);
 

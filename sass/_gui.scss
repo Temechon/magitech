@@ -5,10 +5,12 @@
   height:100%;
   top:0;
   left:0;
+  pointer-events: none;
 
   //Tower button
   .tower {
     $size : 100px;
+    pointer-events: all;
 
     width:$size;
     height:$size;
@@ -22,7 +24,7 @@
 
     position:relative;
     top : 10px;
-    left : 10px;
+    left : 45%;
 
   }
 }
