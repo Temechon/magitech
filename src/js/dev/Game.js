@@ -23,6 +23,7 @@ class Game {
         this.run();
 
         this.gui = new Gui(this);
+        this.mouse = new MouseHandler(this);
 
     }
     _initScene() {

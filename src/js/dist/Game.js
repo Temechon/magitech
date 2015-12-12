@@ -31,6 +31,7 @@ var Game = (function () {
                 this.run();
 
                 this.gui = new Gui(this);
+                this.mouse = new MouseHandler(this);
         }
 
         _createClass(Game, [{
