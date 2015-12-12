@@ -27,7 +27,7 @@ class Game {
 
         let scene = new BABYLON.Scene(this.engine);
         // Camera attached to the canvas
-        let camera= new BABYLON.FreeCamera("cam", new BABYLON.Vector3(0, 30, -30), scene);
+        let camera= new BABYLON.FreeCamera("cam", new BABYLON.Vector3(0, 10, -5), scene);
         camera.setTarget(new BABYLON.Vector3(0,0,0));
         camera.attachControl(this.engine.getRenderingCanvas());
 
@@ -64,8 +64,14 @@ class Game {
     }
 
     _initGame() {
-        BABYLON.Mesh.CreateBox("box", 2.0, this.scene);
-        this.scene.debugLayer.show();
+        var pos = BABYLON.Vector3.Zero();
+        for (let l=0; l<5; l++) {
+            new Line(this, 10, pos);
+            pos.z += 1;
+        }
+
+
+        //this.scene.debugLayer.show();
     }
 
 }

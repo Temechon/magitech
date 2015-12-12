@@ -16,6 +16,15 @@ var Cell = (function (_GameObject) {
 
         _this.position = BABYLON.Vector3.Zero();
         _this.size = 1;
+
+        _this.isVisible = true;
+
+        // A cell is a squared plane
+        var vd = BABYLON.VertexData.CreateGround({
+            width: _this.size, height: _this.size, subdivisions: 1
+        });
+        vd.applyToMesh(_this, false);
+        _this.showBoundingBox = true;
         return _this;
     }
 
