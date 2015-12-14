@@ -99,12 +99,14 @@ class Game {
     // Returns the nearest cell position from the given world position
     getNearestCell(worldPosition) {
         let min = this.lines[0].cells[0]; // minimum is the first cell by default
-        let mindist = BABYLON.Vector3.DistanceSquared(min, worldPosition);
+        let mindist = BABYLON.Vector3.DistanceSquared(min.position, worldPosition);
+
 
         for (let l of this.lines) {
             for (let c of l.cells) {
                 let currentMinDist = BABYLON.Vector3.DistanceSquared(c.position, worldPosition);
-                if ( currentMinDist<= mindist) {
+                console.log(currentMinDist);
+                if ( currentMinDist <= mindist) {
                     mindist = currentMinDist;
                     min = c;
                 }

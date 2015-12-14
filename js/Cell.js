@@ -14,7 +14,7 @@ class Cell extends GameObject{
         });
         vd.applyToMesh(this, false);
 
-        this.material
+        this.material = new BABYLON.StandardMaterial("", this.getScene());
     }
 
 }

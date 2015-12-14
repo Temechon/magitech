@@ -11,18 +11,22 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
 
+        // Clean dist folder (all except lib folder)
+        clean: {
+            js: ["dist/css","dist/js/*", "!dist/js/libs/**",  "dist/index.html"]
+        },
+
         // Compilation from ES6 to ES5 with Babel
         babel: {
             options: {
-                sourceMap: true//,
-                //presets: ['es2015']
+                sourceMap: true
             },
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'src/js/dev',
+                    cwd: 'js',
                     src: '**/*.js',
-                    dest: 'src/js/dist/',
+                    dest: 'dist/js/',
                     ext: '.js'
                 }]
             }
@@ -30,7 +34,7 @@ module.exports = function (grunt) {
         // Watches content related changes
         watch : {
             js : {
-                files: ['src/js/dev/**/*.js'],
+                files: ['js/**/*.js'],
                 tasks: ['babel']
             },
             sass : {
@@ -38,7 +42,7 @@ module.exports = function (grunt) {
                 tasks: ['sass','postcss:debug']
             },
             html : {
-                files: ['src/html/**/*.html'],
+                files: ['html/**/*.html'],
                 tasks: ['bake']
             }
         },
@@ -50,7 +54,7 @@ module.exports = function (grunt) {
                     collapseWhitespace: true
                 },
                 files: {
-                    'index.html': 'index.html'
+                    'dist/index.html': 'dist/index.html'
                 }
             }
         },
@@ -63,7 +67,7 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    'js/index.js': ['src/js/dist/**/*.js']
+                    'dist/js/index.js': ['dist/js/**/*.js', '!dist/js/libs/**/*.js']
                 }
             }
         },
@@ -75,7 +79,7 @@ module.exports = function (grunt) {
             },
             dist : {
                 files: {
-                    'css/main.css': 'sass/main.scss'
+                    'dist/css/main.css': 'sass/main.scss'
                 }
             }
         },
@@ -87,7 +91,7 @@ module.exports = function (grunt) {
                         require('autoprefixer')({browsers: 'last 2 versions'})
                     ]
                 },
-                src: 'css/main.css'
+                src: 'dist/css/main.css'
             },
             dist: {
                 options: {
@@ -96,17 +100,18 @@ module.exports = function (grunt) {
                         require('cssnano')()
                     ]
                 },
-                src: 'css/main.css'
+                src: 'dist/css/main.css'
             }
         },
         // Bake HTML file (link includes in the main html file)
         bake : {
             index: {
                 files: {
-                    "index.html": "src/html/index.html"
+                    'dist/index.html': "html/index.html"
                 }
             }
         },
+
         // GIT STUFF
         gitadd: {
             options: {
@@ -141,7 +146,7 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('default', 'Watch source files', [
+    grunt.registerTask('default', 'Compile and watch source files', [
         'dev',
         'watch'
     ]);
