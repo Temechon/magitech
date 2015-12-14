@@ -14,8 +14,8 @@ module.exports = function (grunt) {
         // Compilation from ES6 to ES5 with Babel
         babel: {
             options: {
-                sourceMap: true,
-                presets: ['es2015']
+                sourceMap: true//,
+                //presets: ['es2015']
             },
             dist: {
                 files: [{
@@ -107,18 +107,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        // Browser synchronisation
-        browserSync : {
-            bsFiles: {
-                src : ['css/*.css', '*.html', 'src/js/dist/**/*.js']
-            },
-            options: {
-                watchTask: true,
-                server: {
-                    baseDir: "./"
-                }
-            }
-        },
         // GIT STUFF
         gitadd: {
             options: {
@@ -151,13 +139,12 @@ module.exports = function (grunt) {
             }
         }
 
-});
+    });
 
-grunt.registerTask('default', 'Watch source files', [
-    'dev',
-    'browserSync',
-    'watch'
-]);
+    grunt.registerTask('default', 'Watch source files', [
+        'dev',
+        'watch'
+    ]);
 
     grunt.registerTask('dev', 'build dev version', [
         'babel',

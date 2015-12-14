@@ -32,7 +32,7 @@ class Game {
 
         let scene = new BABYLON.Scene(this.engine);
         // Camera attached to the canvas
-        let camera= new BABYLON.FreeCamera("cam", new BABYLON.Vector3(0, 10, -5), scene);
+        let camera= new BABYLON.FreeCamera("cam", new BABYLON.Vector3(0, 3, -10), scene);
         camera.setTarget(new BABYLON.Vector3(0,0,0));
         camera.attachControl(this.engine.getRenderingCanvas());
 
@@ -86,7 +86,7 @@ class Game {
         }
 
 
-        this.scene.debugLayer.show();
+        //this.scene.debugLayer.show();
     }
 
     createTower() {
