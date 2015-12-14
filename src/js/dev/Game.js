@@ -16,14 +16,16 @@ class Game {
         // The state scene
         this.scene   = null;
 
+        this.gui = new Gui(this);
+        this.mouse = new MouseHandler(this);
+        // Contains the x lines of the game
+        this.lines = [];
+
         // Resize window event
         window.addEventListener("resize", () => {
             this.engine.resize();
         });
         this.run();
-
-        this.gui = new Gui(this);
-        this.mouse = new MouseHandler(this);
 
     }
     _initScene() {
@@ -68,11 +70,18 @@ class Game {
 
     _initGame() {
 
-        let box = BABYLON.Mesh.CreateBox("", 1, this.scene);
+        // Create ground
+        let plane = BABYLON.Mesh.CreateGround("ground", 25, 25, 1, this.scene);
+        plane.material = new BABYLON.StandardMaterial("", this.scene);
+        plane.material.specularColor = BABYLON.Color3.Black();
+        plane.material.diffuseTexture = new BABYLON.Texture("assets/ground.jpg", this.scene);
+        plane.material.diffuseTexture.uScale = plane.material.diffuseTexture.vScale = 10;
+        plane.material.zOffset = 1;
+
 
         let pos = BABYLON.Vector3.Zero();
         for (let l=0; l<5; l++) {
-            new Line(this, 10, pos);
+            this.lines.push(new Line(this, 10, pos));
             pos.z += 1;
         }
 
@@ -83,9 +92,26 @@ class Game {
     createTower() {
         // Create tower
         let tower = new Tower(this);
-
         // Make tower follow mouse cursor
-
+        this.mouse.followMouse = tower;
     }
+
+    // Returns the nearest cell position from the given world position
+    getNearestCell(worldPosition) {
+        let min = this.lines[0].cells[0]; // minimum is the first cell by default
+        let mindist = BABYLON.Vector3.DistanceSquared(min, worldPosition);
+
+        for (let l of this.lines) {
+            for (let c of l.cells) {
+                let currentMinDist = BABYLON.Vector3.DistanceSquared(c.position, worldPosition);
+                if ( currentMinDist<= mindist) {
+                    mindist = currentMinDist;
+                    min = c;
+                }
+            }
+        }
+        return min;
+    }
+
 
 }

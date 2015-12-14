@@ -13,6 +13,8 @@ class Cell extends GameObject{
             width: this.size,  height: this.size, subdivisions: 1
         });
         vd.applyToMesh(this, false);
+
+        this.material
     }
 
 }
