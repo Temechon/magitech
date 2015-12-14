@@ -154,6 +154,7 @@ module.exports = function (grunt) {
 });
 
 grunt.registerTask('default', 'Watch source files', [
+    'dev',
     'browserSync',
     'watch'
 ]);
