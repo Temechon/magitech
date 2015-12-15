@@ -152,6 +152,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('dev', 'build dev version', [
+        'clean',
         'babel',
         'sass',
         'postcss:debug',
