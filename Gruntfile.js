@@ -112,6 +112,22 @@ module.exports = function (grunt) {
             }
         },
 
+        //Server creation
+        connect: {
+            server: {
+                options: {
+                    port: 3000,
+                    base: '.'
+                }
+            }
+        },
+        // Open default browser
+        open: {
+            local: {
+                path: 'http://localhost:3000/dist'
+            }
+        },
+
         // GIT STUFF
         gitadd: {
             options: {
@@ -148,6 +164,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', 'Compile and watch source files', [
         'dev',
+        'connect',
+        'open',
         'watch'
     ]);
 
