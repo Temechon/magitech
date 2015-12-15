@@ -4,6 +4,7 @@ class Gui {
         this.game = game;
 
         this.towerButton = $("#tower1");
+        this.sendWaveButton = $("#send-wave");
         this.addAction();
 
     }
@@ -12,6 +13,10 @@ class Gui {
 
         this.towerButton.click(() => {
             this.game.createTower();
+        });
+
+        this.sendWaveButton.click(() => {
+            this.game.sendWave();
         });
     }
 }

@@ -7,8 +7,7 @@
   left:0;
   pointer-events: none;
 
-  //Tower button
-  .tower {
+  .game-button {
     $size : 100px;
     pointer-events: all;
 
@@ -23,9 +22,21 @@
     color:white;
 
     position:relative;
+    display: inline-block;
+  }
+
+  //Tower button
+  .tower {
+    @extend .game-button;
     top : 10px;
     left : 45%;
+  }
 
+  // Send wave button
+  .send-wave {
+    @extend .game-button;
+    top : 10px;
+    left : 50%;
   }
 }
 

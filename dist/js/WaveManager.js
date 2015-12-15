@@ -9,6 +9,12 @@ var WaveManager = (function () {
         _classCallCheck(this, WaveManager);
 
         this.game = game;
+
+        // Enemies sent on the battlefield but not dead yet for the current wave
+        this.enemiesSent = [];
+
+        // Enemies that should be sent for the current wave
+        this.enemiesToSend = [];
     }
 
     /**
@@ -17,7 +23,15 @@ var WaveManager = (function () {
 
     _createClass(WaveManager, [{
         key: "sendWave",
-        value: function sendWave() {}
+        value: function sendWave() {
+
+            // Create X enemies
+            var nb = 10;
+            for (var e = 0; e < nb; e++) {
+                var enemy = new Enemy(this.game);
+                this.enemiesToSend.push(enemy);
+            }
+        }
     }]);
 
     return WaveManager;

@@ -102,6 +102,10 @@ var Game = (function () {
 
             this.scene.debugLayer.show();
         }
+
+        /**
+         * Create a tower!
+         */
     }, {
         key: "createTower",
         value: function createTower() {
@@ -111,7 +115,9 @@ var Game = (function () {
             this.mouse.followMouse = tower;
         }
 
-        // Returns the nearest cell position from the given world position
+        /**
+         * Returns the nearest cell position from the given world position
+         */
     }, {
         key: "getNearestCell",
         value: function getNearestCell(worldPosition) {
@@ -171,6 +177,9 @@ var Game = (function () {
 
             return min;
         }
+    }, {
+        key: "sendWave",
+        value: function sendWave() {}
     }]);
 
     return Game;

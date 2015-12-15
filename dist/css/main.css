@@ -16,7 +16,7 @@ html, body {
   top: 0;
   left: 0;
   pointer-events: none; }
-  .gamegui .tower {
+  .gamegui .game-button, .gamegui .tower, .gamegui .send-wave {
     pointer-events: all;
     width: 100px;
     height: 100px;
@@ -27,8 +27,13 @@ html, body {
     font-size: 2em;
     color: white;
     position: relative;
+    display: inline-block; }
+  .gamegui .tower {
     top: 10px;
     left: 45%; }
+  .gamegui .send-wave {
+    top: 10px;
+    left: 50%; }
 
 .debug {
   position: absolute;

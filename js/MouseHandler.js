@@ -13,11 +13,17 @@ class MouseHandler {
 
         // Debug mode activated
         this.debugMode = false;
+        this.debugDiv = [];
 
         // Activate debug mode
         $(window).on('keydown', (evt) => {
             if (evt.keyCode == 222) {
                 this.debugMode = !this.debugMode;
+                if (!this.debugMode) {
+                    for (let d of this.debugDiv) {
+                        d.remove();
+                    }
+                }
             }
         });
 
@@ -39,11 +45,14 @@ class MouseHandler {
             if (this.debugMode) {
                 let obj = this.getObject(evt);
                 if (obj && obj.debug) {
-                    $("body").append($("<div>")
+                    let d = $("<div>")
                         .addClass('debug')
                         .css("top", evt.clientY)
                         .css("left", evt.clientX)
-                        .text(obj.debug()));
+                        .text(obj.debug());
+
+                    this.debugDiv.push(d);
+                    $("body").append(d);
                 }
             }
         });

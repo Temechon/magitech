@@ -92,6 +92,9 @@ class Game {
         this.scene.debugLayer.show();
     }
 
+    /**
+     * Create a tower!
+     */
     createTower() {
         // Create tower
         let tower = new Tower(this);
@@ -99,7 +102,9 @@ class Game {
         this.mouse.followMouse = tower;
     }
 
-    // Returns the nearest cell position from the given world position
+    /**
+     * Returns the nearest cell position from the given world position
+     */
     getNearestCell(worldPosition) {
         let min = this.lines[0].cells[0]; // minimum is the first cell by default
         let mindist = BABYLON.Vector3.DistanceSquared(min.position, worldPosition);
@@ -115,6 +120,10 @@ class Game {
             }
         }
         return min;
+    }
+
+    sendWave() {
+
     }
 
 

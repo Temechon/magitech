@@ -20,11 +20,38 @@ var MouseHandler = (function () {
 
         // Debug mode activated
         this.debugMode = false;
+        this.debugDiv = [];
 
         // Activate debug mode
         $(window).on('keydown', function (evt) {
             if (evt.keyCode == 222) {
                 _this.debugMode = !_this.debugMode;
+                if (!_this.debugMode) {
+                    var _iteratorNormalCompletion = true;
+                    var _didIteratorError = false;
+                    var _iteratorError = undefined;
+
+                    try {
+                        for (var _iterator = _this.debugDiv[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                            var d = _step.value;
+
+                            d.remove();
+                        }
+                    } catch (err) {
+                        _didIteratorError = true;
+                        _iteratorError = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion && _iterator['return']) {
+                                _iterator['return']();
+                            }
+                        } finally {
+                            if (_didIteratorError) {
+                                throw _iteratorError;
+                            }
+                        }
+                    }
+                }
             }
         });
 
@@ -46,7 +73,10 @@ var MouseHandler = (function () {
             if (_this.debugMode) {
                 var obj = _this.getObject(evt);
                 if (obj && obj.debug) {
-                    $("body").append($("<div>").addClass('debug').css("top", evt.clientY).css("left", evt.clientX).text(obj.debug()));
+                    var d = $("<div>").addClass('debug').css("top", evt.clientY).css("left", evt.clientX).text(obj.debug());
+
+                    _this.debugDiv.push(d);
+                    $("body").append(d);
                 }
             }
         });

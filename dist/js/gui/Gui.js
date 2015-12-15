@@ -11,6 +11,7 @@ var Gui = (function () {
         this.game = game;
 
         this.towerButton = $("#tower1");
+        this.sendWaveButton = $("#send-wave");
         this.addAction();
     }
 
@@ -21,6 +22,10 @@ var Gui = (function () {
 
             this.towerButton.click(function () {
                 _this.game.createTower();
+            });
+
+            this.sendWaveButton.click(function () {
+                _this.game.sendWave();
             });
         }
     }]);
