@@ -3,11 +3,7 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
 
     // load all grunt tasks
-    require('jit-grunt')(grunt,{
-        gitadd: 'grunt-git',
-        gitcommit: 'grunt-git',
-        gitpush: 'grunt-git'
-    });
+    require('jit-grunt')(grunt);
 
     grunt.initConfig({
 
@@ -126,44 +122,17 @@ module.exports = function (grunt) {
             local: {
                 path: 'http://localhost:3000/dist'
             }
-        },
-
-        // GIT STUFF
-        gitadd: {
-            options: {
-                verbose: true,
-                force:false,
-                add:true
-            },
-
-            magitech: {
-                options: {
-                    cwd: "./"
-                },
-                files: {
-                    src: ["./"]
-                }
-            }
-        },
-        gitcommit: {
-            task: {
-                options: {
-                    verbose: true,
-                    message: grunt.option('msg')
-                }
-            }
-        },
-        gitpush: {
-            task: {
-                options: {
-                }
-            }
         }
-
     });
 
     grunt.registerTask('default', 'Compile and watch source files', [
         'dev',
+        'connect',
+        'open',
+        'watch'
+    ]);
+
+    grunt.registerTask('run', 'Run the webserver and watch files', [
         'connect',
         'open',
         'watch'
@@ -181,12 +150,6 @@ module.exports = function (grunt) {
         'dev',
         'htmlmin',
         'uglify'
-    ]);
-
-    grunt.registerTask('git', 'Add, commit and push on github', [
-        'gitadd',
-        'gitcommit',
-        'gitpush'
     ]);
 };
 

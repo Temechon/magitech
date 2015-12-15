@@ -5,32 +5,107 @@ class MouseHandler {
 
         this.game = game;
 
-        // This object will follow the mouse
+        // This object will follow the mouse.
         this.followMouse = null;
 
-        $(window).mousemove((evt) => {
-            if (this.followMouse) {
-                // Update pointer coordinate
-                this.game.scene._updatePointerPosition(evt);
-                // Pick ground position according to the mouse cursor
-                let worldPos = this.getWorldPosition();
-                if (worldPos) {
-                    let c = this.game.getNearestCell(worldPos);
-                    this.followMouse.position.copyFrom(c.position);
+        // True if the player is placing a tower
+        this.isPlacingTower = false;
 
+        // Debug mode activated
+        this.debugMode = false;
+
+        // Activate debug mode
+        $(window).on('keydown', (evt) => {
+            if (evt.keyCode == 222) {
+                this.debugMode = !this.debugMode;
+            }
+        });
+
+        // Mouse move handler if the player selected a tower
+        $(window).on('mousemove', (evt) => {
+            if (this.followMouse) {
+                this.isPlacingTower = true;
+
+                // get nearest cell
+                let c = this.getNearestCell(evt);
+                if (c) {
+                    this.followMouse.position.copyFrom(c.position);
+                }
+            }
+        });
+
+        // Debug click event
+        $(window).on('click', (evt) => {
+            if (this.debugMode) {
+                let obj = this.getObject(evt);
+                if (obj && obj.debug) {
+                    $("body").append($("<div>")
+                        .addClass('debug')
+                        .css("top", evt.clientY)
+                        .css("left", evt.clientX)
+                        .text(obj.debug()));
+                }
+            }
+        });
+
+        // Mouse click handler when the tower should be placed
+        $(window).on('click', (evt) => {
+            if (this.isPlacingTower && this.followMouse) {
+
+                let c = this.getNearestCell(evt);
+                if (c) {
+                    // Affect cell to tower
+                    this.followMouse.cell = c;
                 }
 
+                // Remove tower from mousemove
+                this.followMouse = null;
+                this.isPlacingTower = false;
             }
         })
 
     }
 
     // Project the given screen coordinate into 3D world
-    getWorldPosition() {
+    getWorldPosition(evt) {
+        // Update pointer coordinate
+        this.game.scene._updatePointerPosition(evt);
+
         let scene = this.game.scene;
         var pr = scene.pick(scene._pointerX, scene._pointerY, (mesh) => { return mesh.name == "ground"; }, false);
         if (pr.hit) {
             return pr.pickedPoint.clone();
+        }
+        return null;
+    }
+
+    /**
+     * Returns the object clicked
+     * @param evt The mouse event
+     * @returns {Mesh} The selected mesh, null otherwise
+     */
+    getObject(evt) {
+        // Update pointer coordinate
+        this.game.scene._updatePointerPosition(evt);
+
+        let scene = this.game.scene;
+        var pr = scene.pick(scene._pointerX, scene._pointerY, null, false);
+        if (pr.hit) {
+            return pr.pickedMesh;
+        }
+        return null;
+    }
+
+    /**
+     * Returns the nearest cell from the current mouse position
+     * @param evt The mouse event
+     * @returns null if there is no world position (scene.pick returns null), the nearest Cell otherwise
+     */
+    getNearestCell(evt) {
+        // Pick ground position according to the mouse cursor
+        let worldPos = this.getWorldPosition(evt);
+        if (worldPos) {
+            return this.game.getNearestCell(worldPos);
         }
         return null;
     }

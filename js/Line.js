@@ -6,7 +6,8 @@ class Line {
         this.cells = [];
 
         for (let i=0; i<this.length; i++) {
-            let c = new Cell(this.game);
+            // Create new cell
+            let c = new Cell(this.game, this);
             c.position.copyFrom(position);
 
             c.position.x += c.size * i;

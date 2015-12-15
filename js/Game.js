@@ -21,6 +21,9 @@ class Game {
         // Contains the x lines of the game
         this.lines = [];
 
+        // The wave manager of this game: send enemies
+        this.wave = new WaveManager(this);
+
         // Resize window event
         window.addEventListener("resize", () => {
             this.engine.resize();
@@ -32,8 +35,8 @@ class Game {
 
         let scene = new BABYLON.Scene(this.engine);
         // Camera attached to the canvas
-        let camera= new BABYLON.FreeCamera("cam", new BABYLON.Vector3(0, 3, -10), scene);
-        camera.setTarget(new BABYLON.Vector3(0,0,0));
+        let camera= new BABYLON.FreeCamera("cam", new BABYLON.Vector3(4.4, 8, -2.5), scene);
+        camera.rotation = new BABYLON.Vector3(1, 0, 0);
         camera.attachControl(this.engine.getRenderingCanvas());
 
         // Hemispheric light to light the scene
@@ -86,7 +89,7 @@ class Game {
         }
 
 
-        //this.scene.debugLayer.show();
+        this.scene.debugLayer.show();
     }
 
     createTower() {
@@ -105,7 +108,6 @@ class Game {
         for (let l of this.lines) {
             for (let c of l.cells) {
                 let currentMinDist = BABYLON.Vector3.DistanceSquared(c.position, worldPosition);
-                console.log(currentMinDist);
                 if ( currentMinDist <= mindist) {
                     mindist = currentMinDist;
                     min = c;

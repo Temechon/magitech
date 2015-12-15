@@ -13,7 +13,8 @@ var Line = function Line(game, length) {
     this.cells = [];
 
     for (var i = 0; i < this.length; i++) {
-        var c = new Cell(this.game);
+        // Create new cell
+        var c = new Cell(this.game, this);
         c.position.copyFrom(position);
 
         c.position.x += c.size * i;
