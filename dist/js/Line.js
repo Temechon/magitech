@@ -36,7 +36,7 @@ var Line = (function () {
     _createClass(Line, [{
         key: "isHot",
         set: function set(val) {
-            this._isHot = true;
+            this._isHot = val;
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;

@@ -23,12 +23,12 @@ var Enemy = (function (_GameObject) {
         // An enemy belongs to a line (picked random at the start)
         this._line = null;
 
-        this.position = new BABYLON.Vector3(0, 0, 0);
+        this.position = new BABYLON.Vector3(0, 0.5, 0);
 
         this.isVisible = true;
 
         // An enemy is a simple sphere
-        var vd = BABYLON.VertexData.CreateSphere({ diameter: 0.5 });
+        var vd = BABYLON.VertexData.CreateBox({ width: 0.5, height: 1, depth: 0.5 });
         vd.applyToMesh(this, false);
 
         this.material = new BABYLON.StandardMaterial("", this.getScene());
@@ -37,13 +37,19 @@ var Enemy = (function (_GameObject) {
         // True if this enemy walks along the line
         this._isWalking = false;
 
+        this.setReady();
+
+        // Check collisions for bullets
+        this.checkCollisions = true;
+
         // Game loop : enemy walks, get bullets and diiiiie
-        this.getScene().registerBeforeRender(function () {
+        this._gameLoop = function () {
             if (_this._isWalking) {
                 // Increase the enemy position in -x
                 _this.move();
             }
-        });
+        };
+        this.getScene().registerBeforeRender(this._gameLoop);
     }
 
     _createClass(Enemy, [{
@@ -59,6 +65,16 @@ var Enemy = (function (_GameObject) {
         key: "debug",
         value: function debug() {
             return "walking : " + this._isWalking;
+        }
+
+        /**
+         * Destroy this enemy
+         */
+    }, {
+        key: "destroy",
+        value: function destroy() {
+            this.getScene().unregisterBeforeRender(this._gameLoop);
+            this.dispose();
         }
     }, {
         key: "isWalking",

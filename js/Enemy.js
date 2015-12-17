@@ -8,12 +8,12 @@ class Enemy extends GameObject{
         // An enemy belongs to a line (picked random at the start)
         this._line = null;
 
-        this.position = new BABYLON.Vector3(0,0,0);
+        this.position = new BABYLON.Vector3(0,0.5,0);
 
         this.isVisible = true;
 
         // An enemy is a simple sphere
-        let vd = BABYLON.VertexData.CreateSphere({diameter: 0.5});
+        var vd = BABYLON.VertexData.CreateBox({width:0.5, height:1, depth:0.5});
         vd.applyToMesh(this, false);
 
         this.material = new BABYLON.StandardMaterial("", this.getScene());
@@ -22,13 +22,19 @@ class Enemy extends GameObject{
         // True if this enemy walks along the line
         this._isWalking = false;
 
+        this.setReady();
+
+        // Check collisions for bullets
+        this.checkCollisions = true;
+
         // Game loop : enemy walks, get bullets and diiiiie
-        this.getScene().registerBeforeRender(() => {
+        this._gameLoop = () => {
             if (this._isWalking) {
                 // Increase the enemy position in -x
                 this.move();
             }
-        });
+        };
+        this.getScene().registerBeforeRender(this._gameLoop);
     }
 
     set isWalking(val) {
@@ -58,6 +64,13 @@ class Enemy extends GameObject{
         return `walking : ${this._isWalking}`
     }
 
+    /**
+     * Destroy this enemy
+     */
+    destroy() {
+        this.getScene().unregisterBeforeRender(this._gameLoop);
+        this.dispose();
+    }
 
 
 

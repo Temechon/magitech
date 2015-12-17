@@ -24,7 +24,7 @@ class Line {
      * Set a line as hot activates all the tower on this line
      */
     set isHot(val) {
-        this._isHot = true;
+        this._isHot = val;
         for (let c of this.cells) {
             if (c.tower){
                 c.tower.isActivated = true;

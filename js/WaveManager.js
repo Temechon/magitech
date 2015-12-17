@@ -26,9 +26,12 @@ class WaveManager {
             this.enemiesToSend.push(enemy);
         }
 
-        for (let e of this.enemiesToSend) {
-            e.isWalking = true;
-        }
+        let count = 0;
+        var t = new Timer(1500, this.game.scene, {repeat:nb, autodestroy:true});
+        t.callback = () => {
+            this.enemiesToSend[count++].isWalking = true;
+        };
+        t.start();
 
         // TODO throw enemies periodically
         //setTimeout(() => {

@@ -69,7 +69,9 @@ class Tower extends GameObject{
      */
     shoot () {
         if (this.isActivated) {
-            console.log("SHOOTING!!");
+            let pos = this.position.clone();
+            pos.y = 1;
+            new Bullet(this.game, pos);
         }
     }
 

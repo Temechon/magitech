@@ -26,6 +26,7 @@ var WaveManager = (function () {
     _createClass(WaveManager, [{
         key: "sendWave",
         value: function sendWave() {
+            var _this = this;
 
             // Create X enemies
             var nb = 10;
@@ -36,35 +37,17 @@ var WaveManager = (function () {
                 this.enemiesToSend.push(enemy);
             }
 
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
+            var count = 0;
+            var t = new Timer(1500, this.game.scene, { repeat: nb, autodestroy: true });
+            t.callback = function () {
+                _this.enemiesToSend[count++].isWalking = true;
+            };
+            t.start();
 
-            try {
-                for (var _iterator = this.enemiesToSend[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var e = _step.value;
-
-                    e.isWalking = true;
-                }
-
-                // TODO throw enemies periodically
-                //setTimeout(() => {
-                //    this.enemiesToSend[0].isWalking = true;
-                //}, 1500)
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator["return"]) {
-                        _iterator["return"]();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
+            // TODO throw enemies periodically
+            //setTimeout(() => {
+            //    this.enemiesToSend[0].isWalking = true;
+            //}, 1500)
         }
     }]);
 
