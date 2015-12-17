@@ -29,6 +29,9 @@ var Game = (function () {
         // Contains the x lines of the game
         this.lines = [];
 
+        // Contains all towers in the battlefield
+        this.towers = [];
+
         // The wave manager of this game: send enemies
         this.wave = new WaveManager(this);
 
@@ -111,6 +114,7 @@ var Game = (function () {
         value: function createTower() {
             // Create tower
             var tower = new Tower(this);
+            this.towers.push(tower);
             // Make tower follow mouse cursor
             this.mouse.followMouse = tower;
         }
@@ -179,7 +183,26 @@ var Game = (function () {
         }
     }, {
         key: "sendWave",
-        value: function sendWave() {}
+        value: function sendWave() {
+            this.wave.sendWave();
+        }
+
+        /**
+         * Returns a random line z position
+         */
+    }, {
+        key: "getRandomLine",
+        value: function getRandomLine() {
+            var randomNumber = function randomNumber(min, max) {
+                if (min === max) {
+                    return min;
+                }
+                var random = Math.random();
+                return Math.floor(random * (max - min) + min);
+            };
+
+            return this.lines[randomNumber(0, this.lines.length)];
+        }
     }]);
 
     return Game;

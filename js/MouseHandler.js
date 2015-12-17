@@ -40,7 +40,7 @@ class MouseHandler {
             }
         });
 
-        // Debug click event
+        // DEBUG click event
         $(window).on('click', (evt) => {
             if (this.debugMode) {
                 let obj = this.getObject(evt);
@@ -62,16 +62,17 @@ class MouseHandler {
             if (this.isPlacingTower && this.followMouse) {
 
                 let c = this.getNearestCell(evt);
-                if (c) {
+                if (c && c.isEmpty()) {
                     // Affect cell to tower
                     this.followMouse.cell = c;
+
+                    // Remove tower from mousemove
+                    this.followMouse = null;
+                    this.isPlacingTower = false;
                 }
 
-                // Remove tower from mousemove
-                this.followMouse = null;
-                this.isPlacingTower = false;
             }
-        })
+        });
 
     }
 

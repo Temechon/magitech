@@ -8,6 +8,8 @@ class WaveManager {
 
         // Enemies that should be sent for the current wave
         this.enemiesToSend = [];
+
+        this.ENEMIES_X_POSITION = 10;
     }
 
     /**
@@ -19,8 +21,18 @@ class WaveManager {
         let nb = 10;
         for (let e=0; e<nb; e++) {
             let enemy = new Enemy(this.game);
+            enemy.line = this.game.getRandomLine();
+            enemy.position.x = this.ENEMIES_X_POSITION;
             this.enemiesToSend.push(enemy);
         }
 
+        for (let e of this.enemiesToSend) {
+            e.isWalking = true;
+        }
+
+        // TODO throw enemies periodically
+        //setTimeout(() => {
+        //    this.enemiesToSend[0].isWalking = true;
+        //}, 1500)
     }
 }

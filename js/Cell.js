@@ -24,19 +24,17 @@ class Cell extends GameObject{
     }
 
     /**
-     * Link the given tower to this cell.
-     * Only one tower can be found on a cell
-     * @param tower
+     * Returns true if this cell is empty, false otherwise
+     * @returns {boolean}
      */
-    linkTower(tower) {
-        this.tower = tower;
+    isEmpty () {
+        return !this.tower;
     }
 
-    /**
-     * Unlink the tower from this cell
-     */
-    unlinkTower() {
-        this.tower = null;
+
+    debug() {
+        return `is empty : ${this.isEmpty()}\n
+        hot : ${this.line.isHot}`
     }
 
 }

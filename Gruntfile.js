@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         watch : {
             js : {
                 files: ['js/**/*.js'],
-                tasks: ['babel']
+                tasks: ['newer:babel']
             },
             sass : {
                 files: ['sass/**/*.scss'],

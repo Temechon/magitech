@@ -68,7 +68,7 @@ var MouseHandler = (function () {
             }
         });
 
-        // Debug click event
+        // DEBUG click event
         $(window).on('click', function (evt) {
             if (_this.debugMode) {
                 var obj = _this.getObject(evt);
@@ -86,14 +86,14 @@ var MouseHandler = (function () {
             if (_this.isPlacingTower && _this.followMouse) {
 
                 var c = _this.getNearestCell(evt);
-                if (c) {
+                if (c && c.isEmpty()) {
                     // Affect cell to tower
                     _this.followMouse.cell = c;
-                }
 
-                // Remove tower from mousemove
-                _this.followMouse = null;
-                _this.isPlacingTower = false;
+                    // Remove tower from mousemove
+                    _this.followMouse = null;
+                    _this.isPlacingTower = false;
+                }
             }
         });
     }

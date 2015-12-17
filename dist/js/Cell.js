@@ -37,24 +37,19 @@ var Cell = (function (_GameObject) {
     }
 
     /**
-     * Link the given tower to this cell.
-     * Only one tower can be found on a cell
-     * @param tower
+     * Returns true if this cell is empty, false otherwise
+     * @returns {boolean}
      */
 
     _createClass(Cell, [{
-        key: "linkTower",
-        value: function linkTower(tower) {
-            this.tower = tower;
+        key: "isEmpty",
+        value: function isEmpty() {
+            return !this.tower;
         }
-
-        /**
-         * Unlink the tower from this cell
-         */
     }, {
-        key: "unlinkTower",
-        value: function unlinkTower() {
-            this.tower = null;
+        key: "debug",
+        value: function debug() {
+            return "is empty : " + this.isEmpty() + "\n\n        hot : " + this.line.isHot;
         }
     }]);
 

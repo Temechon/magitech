@@ -15,6 +15,8 @@ var WaveManager = (function () {
 
         // Enemies that should be sent for the current wave
         this.enemiesToSend = [];
+
+        this.ENEMIES_X_POSITION = 10;
     }
 
     /**
@@ -29,7 +31,39 @@ var WaveManager = (function () {
             var nb = 10;
             for (var e = 0; e < nb; e++) {
                 var enemy = new Enemy(this.game);
+                enemy.line = this.game.getRandomLine();
+                enemy.position.x = this.ENEMIES_X_POSITION;
                 this.enemiesToSend.push(enemy);
+            }
+
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.enemiesToSend[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var e = _step.value;
+
+                    e.isWalking = true;
+                }
+
+                // TODO throw enemies periodically
+                //setTimeout(() => {
+                //    this.enemiesToSend[0].isWalking = true;
+                //}, 1500)
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator["return"]) {
+                        _iterator["return"]();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
             }
         }
     }]);
