@@ -14,7 +14,12 @@ var WaveManager = (function () {
         this.enemiesSent = [];
 
         // Enemies that should be sent for the current wave
+        // This array is composed of objects {enemy, line}
         this.enemiesToSend = [];
+
+        // Enemies sent for the current wave
+        // This array is indexed by lines
+        this.enemiesSent = [];
 
         this.ENEMIES_X_POSITION = 10;
     }
@@ -32,22 +37,69 @@ var WaveManager = (function () {
             var nb = 10;
             for (var e = 0; e < nb; e++) {
                 var enemy = new Enemy(this.game);
-                enemy.line = this.game.getRandomLine();
+                var line = this.game.getRandomLine();
+
+                // update enemy position
+                enemy.position.z = line.cells[0].position.z;
                 enemy.position.x = this.ENEMIES_X_POSITION;
-                this.enemiesToSend.push(enemy);
+
+                // Save enemy
+                this.enemiesToSend.push({ enemy: enemy, line: line });
             }
 
             var count = 0;
             var t = new Timer(1500, this.game.scene, { repeat: nb, autodestroy: true });
             t.callback = function () {
-                _this.enemiesToSend[count++].isWalking = true;
+                var obj = _this.enemiesToSend[count++];
+                var enemy = obj.enemy;
+                var line = obj.line;
+                enemy.isWalking = true;
+                // set line as hot
+                line.isHot = true;
+
+                // Save the enemy that has been sent
+                _this.enemiesSent.push(obj);
+            };
+            t.onFinish = function () {
+                // Remove all enemies to send, cause all enemies have been sent :)
+                _this.enemiesToSend.length = 0;
             };
             t.start();
+        }
 
-            // TODO throw enemies periodically
-            //setTimeout(() => {
-            //    this.enemiesToSend[0].isWalking = true;
-            //}, 1500)
+        /**
+         * The given enemy has been destroyed: delete it from the wave manager.
+         * If a line has no more enemy walking, deactivate the line
+         */
+    }, {
+        key: "removeEnemy",
+        value: function removeEnemy(enemy) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.enemiesSent[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var obj = _step.value;
+
+                    if (obj.enemy === enemy) {
+                        // TODO
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator["return"]) {
+                        _iterator["return"]();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
         }
     }]);
 

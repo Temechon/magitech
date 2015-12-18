@@ -5,9 +5,6 @@ class Enemy extends GameObject{
 
         this.name = "enemy";
 
-        // An enemy belongs to a line (picked random at the start)
-        this._line = null;
-
         this.position = new BABYLON.Vector3(0,0.5,0);
 
         this.isVisible = true;
@@ -24,9 +21,6 @@ class Enemy extends GameObject{
 
         this.setReady();
 
-        // Check collisions for bullets
-        this.checkCollisions = true;
-
         // Game loop : enemy walks, get bullets and diiiiie
         this._gameLoop = () => {
             if (this._isWalking) {
@@ -37,22 +31,16 @@ class Enemy extends GameObject{
         this.getScene().registerBeforeRender(this._gameLoop);
     }
 
+    get isWalking() {
+        return this._isWalking;
+    }
+
     set isWalking(val) {
         this._isWalking = val;
-        this._line.isHot = true;
-    }
 
-    // Returns the line attached to this enemy
-    get line() {
-        return this._line;
+        // Check collisions for bullets
+        this.checkCollisions = val;
     }
-
-    // Set the line attached to this enemy, and update its z position accordingly
-    set line(line) {
-        this._line = line;
-        this.position.z = this._line.cells[0].position.z;
-    }
-
     /**
      * Move this enemy during a tick
      */
@@ -68,6 +56,9 @@ class Enemy extends GameObject{
      * Destroy this enemy
      */
     destroy() {
+        // Remove enemy from wave manager
+        this.game.wave.removeEnemy(this);
+
         this.getScene().unregisterBeforeRender(this._gameLoop);
         this.dispose();
     }

@@ -144,4 +144,16 @@ class Game {
 
         return this.lines[randomNumber(0, this.lines.length)];
     }
+
+    /**
+     * Returns the line corresponding to the given id
+     */
+    getLineById(id) {
+        for (let l of this.lines) {
+            if (id == l.id) {
+                return l;
+            }
+        }
+        return null;
+    }
 }

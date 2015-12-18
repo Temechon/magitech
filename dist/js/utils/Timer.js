@@ -34,7 +34,11 @@ var Timer = (function () {
         // True if the timer has been started, false otherwise
         this.started = false;
 
+        // Function to be repeated when the timer is finished
         this.callback = null;
+
+        // Function to be called when the timer is finished (no more repeat counts)
+        this.onFinish = null;
 
         //If set, the callback action will be repeated the specified number of times
         this.repeat = options.repeat || 1;
@@ -137,12 +141,18 @@ var Timer = (function () {
                 if (this.repeat != -1) {
                     this.repeat--;
                 }
-                this.callback();
+                if (this.callback) {
+                    this.callback();
+                }
 
                 if (this.repeat > 0 || this.repeat == -1) {
                     this.reset();
                     this.start();
                 } else {
+                    // Call the onFinish action
+                    if (this.onFinish) {
+                        this.onFinish();
+                    }
                     // Autodestroy
                     if (this.autodestroy) {
                         this._destroy();

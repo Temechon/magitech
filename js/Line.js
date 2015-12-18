@@ -5,6 +5,9 @@ class Line {
         this.length = length;
         this.cells = [];
 
+        // Unique ID
+        this.id = this.uniqueId();
+
         // A line is hot when an enemy is attached to this line
         this._isHot = false;
 
@@ -17,7 +20,16 @@ class Line {
 
             this.cells.push(c);
         }
+    }
 
+    /**
+     * Generates a unique ID for this line
+     */
+    uniqueId() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
     }
 
     /**

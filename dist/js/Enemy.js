@@ -20,9 +20,6 @@ var Enemy = (function (_GameObject) {
 
         this.name = "enemy";
 
-        // An enemy belongs to a line (picked random at the start)
-        this._line = null;
-
         this.position = new BABYLON.Vector3(0, 0.5, 0);
 
         this.isVisible = true;
@@ -38,9 +35,6 @@ var Enemy = (function (_GameObject) {
         this._isWalking = false;
 
         this.setReady();
-
-        // Check collisions for bullets
-        this.checkCollisions = true;
 
         // Game loop : enemy walks, get bullets and diiiiie
         this._gameLoop = function () {
@@ -73,27 +67,22 @@ var Enemy = (function (_GameObject) {
     }, {
         key: "destroy",
         value: function destroy() {
+            // Remove enemy from wave manager
+            this.game.wave.removeEnemy(this);
+
             this.getScene().unregisterBeforeRender(this._gameLoop);
             this.dispose();
         }
     }, {
         key: "isWalking",
+        get: function get() {
+            return this._isWalking;
+        },
         set: function set(val) {
             this._isWalking = val;
-            this._line.isHot = true;
-        }
 
-        // Returns the line attached to this enemy
-    }, {
-        key: "line",
-        get: function get() {
-            return this._line;
-        },
-
-        // Set the line attached to this enemy, and update its z position accordingly
-        set: function set(line) {
-            this._line = line;
-            this.position.z = this._line.cells[0].position.z;
+            // Check collisions for bullets
+            this.checkCollisions = val;
         }
     }]);
 

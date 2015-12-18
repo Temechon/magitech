@@ -16,19 +16,29 @@ class Bullet extends GameObject{
         // Set ready to avoid first frame collisions
         this.setReady();
 
+        const MAX_DIST = 20;
+
         // Move function
         this._move = () => {
             this.moveWithCollisions(this.direction);
-            //this.position.addInPlace(this.direction);
+            //destroy bullet if too far away
+            if (this.position.x >= MAX_DIST) {
+                this.destroy();
+            }
         };
         this.getScene().registerBeforeRender(this._move);
 
         // Collision function
         this.onCollide = (otherMesh) => {
-            otherMesh.destroy();
-            this.destroy();
+            // Collide only on enemies
+            if (otherMesh instanceof Enemy) {
+                // Collide only on waking enemies
+                if (otherMesh.isWalking) {
+                    otherMesh.destroy(); // TODO remove life point of the enemy
+                    this.destroy();
+                }
+            }
         }
-
     }
 
     /**
@@ -37,8 +47,7 @@ class Bullet extends GameObject{
     destroy () {
         // Remove move function
         this.getScene().unregisterBeforeRender(this._move);
-        // Temove the object
+        // Remove the object
         this.dispose();
-
     }
 }

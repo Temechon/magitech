@@ -9,56 +9,67 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Bullet = (function (_GameObject) {
-        _inherits(Bullet, _GameObject);
+    _inherits(Bullet, _GameObject);
 
-        function Bullet(game, position) {
-                var _this = this;
+    function Bullet(game, position) {
+        var _this = this;
 
-                _classCallCheck(this, Bullet);
+        _classCallCheck(this, Bullet);
 
-                _get(Object.getPrototypeOf(Bullet.prototype), "constructor", this).call(this, game);
-                this.position = position;
+        _get(Object.getPrototypeOf(Bullet.prototype), "constructor", this).call(this, game);
+        this.position = position;
 
-                // A bullet is a simple sphere
-                var vd = BABYLON.VertexData.CreateSphere({ diameter: 0.3 });
-                vd.applyToMesh(this, false);
+        // A bullet is a simple sphere
+        var vd = BABYLON.VertexData.CreateSphere({ diameter: 0.3 });
+        vd.applyToMesh(this, false);
 
-                // Direction by default is along the line
-                this.direction = new BABYLON.Vector3(0.1, 0, 0);
+        // Direction by default is along the line
+        this.direction = new BABYLON.Vector3(0.1, 0, 0);
 
-                this.isVisible = true;
+        this.isVisible = true;
 
-                // Set ready to avoid first frame collisions
-                this.setReady();
+        // Set ready to avoid first frame collisions
+        this.setReady();
 
-                // Move function
-                this._move = function () {
-                        _this.moveWithCollisions(_this.direction);
-                        //this.position.addInPlace(this.direction);
-                };
-                this.getScene().registerBeforeRender(this._move);
+        var MAX_DIST = 20;
 
-                // Collision function
-                this.onCollide = function (otherMesh) {
-                        otherMesh.destroy();
-                        _this.destroy();
-                };
-        }
+        // Move function
+        this._move = function () {
+            _this.moveWithCollisions(_this.direction);
+            //destroy bullet if too far away
+            if (_this.position.x >= MAX_DIST) {
+                _this.destroy();
+            }
+        };
+        this.getScene().registerBeforeRender(this._move);
 
-        /**
-         * Remove this bullet
-         */
-
-        _createClass(Bullet, [{
-                key: "destroy",
-                value: function destroy() {
-                        // Remove move function
-                        this.getScene().unregisterBeforeRender(this._move);
-                        // Temove the object
-                        this.dispose();
+        // Collision function
+        this.onCollide = function (otherMesh) {
+            // Collide only on enemies
+            if (otherMesh instanceof Enemy) {
+                // Collide only on waking enemies
+                if (otherMesh.isWalking) {
+                    otherMesh.destroy(); // TODO remove life point of the enemy
+                    _this.destroy();
                 }
-        }]);
+            }
+        };
+    }
 
-        return Bullet;
+    /**
+     * Remove this bullet
+     */
+
+    _createClass(Bullet, [{
+        key: "destroy",
+        value: function destroy() {
+            // Remove move function
+            this.getScene().unregisterBeforeRender(this._move);
+            // Remove the object
+            this.dispose();
+        }
+    }]);
+
+    return Bullet;
 })(GameObject);
 //# sourceMappingURL=Bullet.js.map
