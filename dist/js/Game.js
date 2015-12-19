@@ -115,7 +115,9 @@ var Game = (function () {
          */
     }, {
         key: "createTower",
-        value: function createTower() {
+        value: function createTower(type) {
+            // Get tower type
+
             // Check gold
             if (this._gold > 0) {
                 // Create tower

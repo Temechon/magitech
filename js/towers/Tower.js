@@ -10,31 +10,12 @@ class Tower extends GameObject{
         // The current cell of the tower. Null at start because the tower is not placed
         this._cell = null;
 
-        // True if the tower start to shoot, false otherwise
-        this.isActivated = false;
-
-        // This tower will shoot every xx ms
-        this.shootCadency = 500;
-
-        // Timer repeat indefinitely, each 500ms
-        this.timer = new Timer(500, this.getScene(), {repeat:-1, autostart:true});
-        this.timer.callback = () => {
-            this.shoot();
-        };
+        // The build cost of this tower
+        this.cost = 0;
 
         // A cell is a squared plane
-        var vd = BABYLON.VertexData.CreateBox({width:1, height:2, depth:1});
+        var vd = BABYLON.VertexData.CreateBox({width:0.5, height:1.5, depth:0.5});
         vd.applyToMesh(this, false);
-
-
-    }
-
-    /**
-     * Display debug information on the screen
-     * @returns {string}
-     */
-    debug() {
-        return `is activated : ${this.isActivated}`
     }
 
     /**
@@ -63,16 +44,4 @@ class Tower extends GameObject{
         // deactivate tower
         this.isActivated = false;
     }
-
-    /**
-     * Fire a bullet if there is at least one enemy in sight
-     */
-    shoot () {
-        if (this.isActivated) {
-            let pos = this.position.clone();
-            pos.y = 1;
-            new Bullet(this.game, pos);
-        }
-    }
-
 }

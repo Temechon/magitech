@@ -102,7 +102,9 @@ class Game {
     /**
      * Create a tower if enough gold
      */
-    createTower() {
+    createTower(type) {
+        // Get tower type
+
         // Check gold
         if (this._gold > 0) {
             // Create tower

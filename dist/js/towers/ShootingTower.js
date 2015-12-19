@@ -8,22 +8,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Tower = (function (_GameObject) {
-    _inherits(Tower, _GameObject);
+var ShootingTower = (function (_Tower) {
+    _inherits(ShootingTower, _Tower);
 
-    function Tower(game) {
+    function ShootingTower(game) {
         var _this = this;
 
-        _classCallCheck(this, Tower);
+        _classCallCheck(this, ShootingTower);
 
-        _get(Object.getPrototypeOf(Tower.prototype), "constructor", this).call(this, game);
+        _get(Object.getPrototypeOf(ShootingTower.prototype), "constructor", this).call(this, game);
 
-        this.position = BABYLON.Vector3.Zero();
-
-        this.isVisible = true;
-
-        // The current cell of the tower. Null at start because the tower is not placed
-        this._cell = null;
+        this.cost = 50;
 
         // True if the tower start to shoot, false otherwise
         this.isActivated = false;
@@ -32,14 +27,10 @@ var Tower = (function (_GameObject) {
         this.shootCadency = 500;
 
         // Timer repeat indefinitely, each 500ms
-        this.timer = new Timer(500, this.getScene(), { repeat: -1, autostart: true });
+        this.timer = new Timer(this.shootCadency, this.getScene(), { repeat: -1, autostart: true });
         this.timer.callback = function () {
             _this.shoot();
         };
-
-        // A cell is a squared plane
-        var vd = BABYLON.VertexData.CreateBox({ width: 0.5, height: 1.5, depth: 0.5 });
-        vd.applyToMesh(this, false);
     }
 
     /**
@@ -47,30 +38,10 @@ var Tower = (function (_GameObject) {
      * @returns {string}
      */
 
-    _createClass(Tower, [{
+    _createClass(ShootingTower, [{
         key: "debug",
         value: function debug() {
-            return "is activated : " + this.isActivated;
-        }
-
-        /**
-         * Link the given cell to this tower
-         * @param cell
-         */
-    }, {
-        key: "unlinkCell",
-
-        /**
-         * Unlink the cell from this tower
-         */
-        value: function unlinkCell() {
-            if (this._cell) {
-                this._cell.tower = null;
-            }
-            this._cell = null;
-
-            // deactivate tower
-            this.isActivated = false;
+            return "Shooting Tower \n * is activated : " + this.isActivated;
         }
 
         /**
@@ -85,19 +56,8 @@ var Tower = (function (_GameObject) {
                 new Bullet(this.game, pos);
             }
         }
-    }, {
-        key: "cell",
-        set: function set(cell) {
-            this._cell = cell;
-            this._cell.tower = this;
-
-            // If the corresponding line is hot, activate this tower
-            if (this._cell.line.isHot) {
-                this.isActivated = true;
-            }
-        }
     }]);
 
-    return Tower;
-})(GameObject);
-//# sourceMappingURL=Tower.js.map
+    return ShootingTower;
+})(Tower);
+//# sourceMappingURL=ShootingTower.js.map
