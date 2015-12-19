@@ -52,7 +52,7 @@ var Bullet = (function (_GameObject) {
             if (otherMesh instanceof Enemy) {
                 // Collide only on waking enemies
                 if (otherMesh.isWalking) {
-                    otherMesh.destroy(_this.power); // TODO remove life point of the enemy
+                    otherMesh.destroy(_this.power);
                     _this.destroy();
                 }
             }
