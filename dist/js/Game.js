@@ -35,6 +35,9 @@ var Game = (function () {
         // The wave manager of this game: send enemies
         this.wave = new WaveManager(this);
 
+        // The total gold available to the player
+        this._gold = 100;
+
         // Resize window event
         window.addEventListener("resize", function () {
             _this.engine.resize();
@@ -103,20 +106,26 @@ var Game = (function () {
                 pos.z += 1;
             }
 
+            this.updateGui();
             this.scene.debugLayer.show();
         }
 
         /**
-         * Create a tower!
+         * Create a tower if enough gold
          */
     }, {
         key: "createTower",
         value: function createTower() {
-            // Create tower
-            var tower = new Tower(this);
-            this.towers.push(tower);
-            // Make tower follow mouse cursor
-            this.mouse.followMouse = tower;
+            // Check gold
+            if (this._gold > 0) {
+                // Create tower
+                var tower = new Tower(this);
+                this.towers.push(tower);
+                this.gold -= 25;
+
+                // Make tower follow mouse cursor
+                this.mouse.followMouse = tower;
+            }
         }
 
         /**
@@ -238,6 +247,26 @@ var Game = (function () {
             }
 
             return null;
+        }
+
+        /**
+         * Update the GUI
+         */
+    }, {
+        key: "updateGui",
+        value: function updateGui() {
+            this.gui.refresh();
+        }
+
+        /*** GETTER SETTER **/
+    }, {
+        key: "gold",
+        get: function get() {
+            return this._gold;
+        },
+        set: function set(value) {
+            this._gold = value;
+            this.updateGui();
         }
     }]);
 

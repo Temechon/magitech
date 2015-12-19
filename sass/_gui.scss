@@ -25,6 +25,13 @@
     display: inline-block;
   }
 
+  .gold {
+    @extend .game-button;
+    top : 10px;
+    left : 35%;
+
+  }
+
   //Tower button
   .tower {
     @extend .game-button;

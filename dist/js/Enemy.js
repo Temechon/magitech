@@ -24,6 +24,9 @@ var Enemy = (function (_GameObject) {
 
         this.isVisible = true;
 
+        // The life of this enemy
+        this.lifePoints = 5;
+
         // An enemy is a simple sphere
         var vd = BABYLON.VertexData.CreateBox({ width: 0.5, height: 1, depth: 0.5 });
         vd.applyToMesh(this, false);
@@ -62,16 +65,23 @@ var Enemy = (function (_GameObject) {
         }
 
         /**
-         * Destroy this enemy
+         * Destroy this enemy. Parameter is the power of the bullet
          */
     }, {
         key: "destroy",
-        value: function destroy() {
-            // Remove enemy from wave manager
-            this.game.wave.removeEnemy(this);
+        value: function destroy(bulletPower) {
 
-            this.getScene().unregisterBeforeRender(this._gameLoop);
-            this.dispose();
+            // Decrease the poor guy life
+            this.lifePoints -= bulletPower;
+            // Todo hit animation ?
+
+            if (this.lifePoints <= 0) {
+                // Remove enemy from wave manager
+                this.game.wave.removeEnemy(this);
+
+                this.getScene().unregisterBeforeRender(this._gameLoop);
+                this.dispose();
+            }
         }
     }, {
         key: "isWalking",

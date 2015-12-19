@@ -12,6 +12,7 @@ var Gui = (function () {
 
         this.towerButton = $("#tower1");
         this.sendWaveButton = $("#send-wave");
+        this.goldLabel = $("#gold");
         this.addAction();
     }
 
@@ -27,6 +28,15 @@ var Gui = (function () {
             this.sendWaveButton.click(function () {
                 _this.game.sendWave();
             });
+        }
+
+        /**
+         * Refresh all label of this GUI panel
+         */
+    }, {
+        key: "refresh",
+        value: function refresh() {
+            this.goldLabel.text(this.game.gold);
         }
     }]);
 

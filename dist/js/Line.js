@@ -62,7 +62,7 @@ var Line = (function () {
                     var c = _step.value;
 
                     if (c.tower) {
-                        c.tower.isActivated = true;
+                        c.tower.isActivated = val;
                     }
                 }
             } catch (err) {

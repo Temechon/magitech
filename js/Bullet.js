@@ -16,7 +16,10 @@ class Bullet extends GameObject{
         // Set ready to avoid first frame collisions
         this.setReady();
 
-        const MAX_DIST = 20;
+        // The number of life points it removes to the hit enemy
+        this.power = 1;
+
+        const MAX_DIST = 15;
 
         // Move function
         this._move = () => {
@@ -34,7 +37,7 @@ class Bullet extends GameObject{
             if (otherMesh instanceof Enemy) {
                 // Collide only on waking enemies
                 if (otherMesh.isWalking) {
-                    otherMesh.destroy(); // TODO remove life point of the enemy
+                    otherMesh.destroy(this.power);
                     this.destroy();
                 }
             }

@@ -39,7 +39,7 @@ class Line {
         this._isHot = val;
         for (let c of this.cells) {
             if (c.tower){
-                c.tower.isActivated = true;
+                c.tower.isActivated = val;
             }
         }
     }

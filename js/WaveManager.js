@@ -37,7 +37,7 @@ class WaveManager {
         }
 
         let count = 0;
-        var t = new Timer(1500, this.game.scene, {repeat:nb, autodestroy:true});
+        let t = new Timer(1500, this.game.scene, {repeat:nb, autodestroy:true});
         t.callback = () => {
             let obj = this.enemiesToSend[count++];
             let enemy = obj.enemy;
@@ -61,10 +61,34 @@ class WaveManager {
      * If a line has no more enemy walking, deactivate the line
      */
     removeEnemy(enemy) {
-        for (let obj of this.enemiesSent) {
+        let line = null;
+        for (let i=0; i<this.enemiesSent.length; i++) {
+            let obj = this.enemiesSent[i];
             if (obj.enemy === enemy) {
-                // TODO
+                this.enemiesSent.splice(i, 1);
+
+                if (this.getNumberOfEnemiesOnLine(obj.line) == 0) {
+                    // Deactivate tower on this line
+                    obj.line.isHot = false;
+                }
+                break;
             }
         }
+
+
+    }
+
+    /**
+     * Returns the number of enemies walking along a given line.
+     */
+    getNumberOfEnemiesOnLine(line) {
+        let sum = 0;
+        for (let obj of this.enemiesSent) {
+            if (obj.line === line){
+                sum++;
+            }
+        }
+
+        return sum;
     }
 }

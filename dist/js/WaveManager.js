@@ -74,6 +74,28 @@ var WaveManager = (function () {
     }, {
         key: "removeEnemy",
         value: function removeEnemy(enemy) {
+            var line = null;
+            for (var i = 0; i < this.enemiesSent.length; i++) {
+                var obj = this.enemiesSent[i];
+                if (obj.enemy === enemy) {
+                    this.enemiesSent.splice(i, 1);
+
+                    if (this.getNumberOfEnemiesOnLine(obj.line) == 0) {
+                        // Deactivate tower on this line
+                        obj.line.isHot = false;
+                    }
+                    break;
+                }
+            }
+        }
+
+        /**
+         * Returns the number of enemies walking along a given line.
+         */
+    }, {
+        key: "getNumberOfEnemiesOnLine",
+        value: function getNumberOfEnemiesOnLine(line) {
+            var sum = 0;
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;
@@ -82,8 +104,8 @@ var WaveManager = (function () {
                 for (var _iterator = this.enemiesSent[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                     var obj = _step.value;
 
-                    if (obj.enemy === enemy) {
-                        // TODO
+                    if (obj.line === line) {
+                        sum++;
                     }
                 }
             } catch (err) {
@@ -100,6 +122,8 @@ var WaveManager = (function () {
                     }
                 }
             }
+
+            return sum;
         }
     }]);
 

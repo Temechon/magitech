@@ -27,6 +27,9 @@ class Game {
         // The wave manager of this game: send enemies
         this.wave = new WaveManager(this);
 
+        // The total gold available to the player
+        this._gold = 100;
+
         // Resize window event
         window.addEventListener("resize", () => {
             this.engine.resize();
@@ -92,18 +95,25 @@ class Game {
         }
 
 
+        this.updateGui();
         this.scene.debugLayer.show();
     }
 
     /**
-     * Create a tower!
+     * Create a tower if enough gold
      */
     createTower() {
-        // Create tower
-        let tower = new Tower(this);
-        this.towers.push(tower);
-        // Make tower follow mouse cursor
-        this.mouse.followMouse = tower;
+        // Check gold
+        if (this._gold > 0) {
+            // Create tower
+            let tower = new Tower(this);
+            this.towers.push(tower);
+            this.gold -= 25;
+
+            // Make tower follow mouse cursor
+            this.mouse.followMouse = tower;
+        }
+
     }
 
     /**
@@ -155,5 +165,21 @@ class Game {
             }
         }
         return null;
+    }
+
+    /**
+     * Update the GUI
+     */
+    updateGui() {
+        this.gui.refresh();
+    }
+
+    /*** GETTER SETTER **/
+    get gold() {
+        return this._gold;
+    }
+    set gold(value) {
+        this._gold = value;
+        this.updateGui();
     }
 }

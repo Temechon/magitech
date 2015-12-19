@@ -12,12 +12,32 @@
  * ~~if the line is hot activate the tower~~
 
 # When an enemy dies
- * notify the game, which notifies the wavemanager
- * wave manager check the line of this enemy
- * If there are no more enemies in this line, deactivate all towers in this line
+ * ~~notify the game, which notifies the wavemanager~~
+ * ~~wave manager check the line of this enemy~~
+ * ~~If there are no more enemies in this line, deactivate all towers in this line~~
 
 # Remove bullet
  * ~~if collision with enemy~~
  * ~~if position.x > max value~~
+
+# Enemy
+ * ~~Throw him some life points~~
+ * ~~When collision, a bullet decrease his life points~~
+ * ~~When life points == 0, kill the poor guy~~
+
+# Tower
+ * ~~A tower costs gold to be built (decreased from the player account)~~
+ * Different kind of tower
+    * Attack strategy ?
+ * Create a tower that generate gold every X seconds
+
+# Bullet
+ * ~~Give a bullet a strength~~
+ * ~~When hit an enemy, decrease his life by this strength~~
+ * Elemental damage ?
+
+# Player
+ * ~~Create a gold account~~
+
 
 

@@ -5,6 +5,7 @@ class Gui {
 
         this.towerButton = $("#tower1");
         this.sendWaveButton = $("#send-wave");
+        this.goldLabel = $("#gold");
         this.addAction();
 
     }
@@ -18,5 +19,12 @@ class Gui {
         this.sendWaveButton.click(() => {
             this.game.sendWave();
         });
+    }
+
+    /**
+     * Refresh all label of this GUI panel
+     */
+    refresh() {
+        this.goldLabel.text(this.game.gold);
     }
 }

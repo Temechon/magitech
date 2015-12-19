@@ -16,7 +16,7 @@ html, body {
   top: 0;
   left: 0;
   pointer-events: none; }
-  .gamegui .game-button, .gamegui .tower, .gamegui .send-wave {
+  .gamegui .game-button, .gamegui .gold, .gamegui .tower, .gamegui .send-wave {
     pointer-events: all;
     width: 100px;
     height: 100px;
@@ -28,6 +28,9 @@ html, body {
     color: white;
     position: relative;
     display: inline-block; }
+  .gamegui .gold {
+    top: 10px;
+    left: 35%; }
   .gamegui .tower {
     top: 10px;
     left: 45%; }
