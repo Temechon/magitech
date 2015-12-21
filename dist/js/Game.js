@@ -38,6 +38,9 @@ var Game = (function () {
         // The total gold available to the player
         this._gold = 100;
 
+        // The configuration object of the game
+        this.config = new Config();
+
         // Resize window event
         window.addEventListener("resize", function () {
             _this.engine.resize();
@@ -91,6 +94,7 @@ var Game = (function () {
     }, {
         key: "_initGame",
         value: function _initGame() {
+            var _this3 = this;
 
             // Create ground
             var plane = BABYLON.Mesh.CreateGround("ground", 25, 25, 1, this.scene);
@@ -107,7 +111,15 @@ var Game = (function () {
             }
 
             this.updateGui();
-            this.scene.debugLayer.show();
+            window.addEventListener("keydown", function (evt) {
+                if (evt.keyCode == 32) {
+                    if (_this3.scene.debugLayer._enabled) {
+                        _this3.scene.debugLayer.hide();
+                    } else {
+                        _this3.scene.debugLayer.show();
+                    }
+                }
+            });
         }
 
         /**

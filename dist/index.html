@@ -16,6 +16,9 @@
 
     <!--All js file to run this game -->
     <!--Dev version-->
+    
+    <script src="js/utils/Config.js"></script>
+    <script src="js/Game.js"></script>
     <script src="js/Game.js"></script>
     <script src="js/GameObject.js"></script>
     <script src="js/Cell.js"></script>
@@ -43,18 +46,32 @@
 
     <div class="gamegui">
     
-        <div class="gold" id="gold">
-            0
+        <div class="top-banner">
+    
+            <div class="top-button" id="gold">
+                0
+            </div>
+    
+            <div class="top-button" id="send-wave">
+                send wave
+            </div>
         </div>
     
-        <div class="tower" id="tower1">
-            <i class="fa fa-building-o"></i>
+        <div class="left-banner">
+            <div class="tower" id="generator">
+                Generator
+            </div>
+    
+            <div class="tower" id="shooter">
+                Shooter
+            </div>
+    
+            <div class="tower" id="shooter-useless">
+                ShooterUseless
+            </div>
         </div>
     
     
-        <div class="send-wave" id="send-wave">
-            <i class="fa fa-users"></i>
-        </div>
     
     
     

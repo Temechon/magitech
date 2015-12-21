@@ -16,27 +16,33 @@ html, body {
   top: 0;
   left: 0;
   pointer-events: none; }
-  .gamegui .game-button, .gamegui .gold, .gamegui .tower, .gamegui .send-wave {
-    pointer-events: all;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #0b97c4;
-    line-height: 100px;
-    text-align: center;
-    font-size: 2em;
-    color: white;
-    position: relative;
-    display: inline-block; }
-  .gamegui .gold {
-    top: 10px;
-    left: 35%; }
-  .gamegui .tower {
-    top: 10px;
-    left: 45%; }
-  .gamegui .send-wave {
-    top: 10px;
-    left: 50%; }
+  .gamegui .top-banner {
+    margin-left: 150px;
+    height: 80px; }
+    .gamegui .top-banner .top-button {
+      pointer-events: all;
+      background-color: #2D2D37;
+      display: inline-block;
+      width: 150px;
+      height: 80px;
+      line-height: 80px;
+      text-align: center;
+      font-size: 2em;
+      color: white;
+      cursor: pointer; }
+  .gamegui .left-banner {
+    width: 150px; }
+    .gamegui .left-banner .tower {
+      margin-top: 10px;
+      width: 150px;
+      height: 50px;
+      background-color: #686872;
+      line-height: 50px;
+      text-align: center;
+      font-size: 1.2em;
+      color: white;
+      pointer-events: all;
+      cursor: pointer; }
 
 .debug {
   position: absolute;

@@ -3,17 +3,21 @@ class Gui {
 
         this.game = game;
 
-        this.towerButton = $("#tower1");
+        this.towers = $(".tower");
         this.sendWaveButton = $("#send-wave");
         this.goldLabel = $("#gold");
+
         this.addAction();
 
     }
 
     addAction() {
 
-        this.towerButton.click(() => {
-            this.game.createTower();
+        this.towers.each( (elem) => {
+            console.log("coucou");
+            //$(elem).click(() => {
+            //    this.game.createTower();
+            //});
         });
 
         this.sendWaveButton.click(() => {

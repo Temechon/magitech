@@ -30,6 +30,9 @@ class Game {
         // The total gold available to the player
         this._gold = 100;
 
+        // The configuration object of the game
+        this.config = new Config();
+
         // Resize window event
         window.addEventListener("resize", () => {
             this.engine.resize();
@@ -96,7 +99,15 @@ class Game {
 
 
         this.updateGui();
-        this.scene.debugLayer.show();
+        window.addEventListener("keydown", (evt) => {
+            if (evt.keyCode == 32) {
+                if (this.scene.debugLayer._enabled) {
+                    this.scene.debugLayer.hide();
+                } else {
+                    this.scene.debugLayer.show();
+                }
+            }
+        });
     }
 
     /**
