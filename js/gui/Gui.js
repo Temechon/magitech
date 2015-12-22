@@ -3,9 +3,9 @@ class Gui {
 
         this.game = game;
 
-        this.towers = $(".tower");
-        this.sendWaveButton = $("#send-wave");
-        this.goldLabel = $("#gold");
+        this.towers = $('.tower');
+        this.sendWaveButton = $('#send-wave');
+        this.goldLabel = $('#gold');
 
         this.addAction();
 
@@ -16,7 +16,8 @@ class Gui {
 
         // For Each tower button, add a click event on it
         this.towers.on('click', (elem)=> {
-            console.log($(elem));
+            // Create a tower by passing its CONFIG name
+            this.game.createTower($(elem.currentTarget).attr('id'));
         });
 
         this.sendWaveButton.click(() => {

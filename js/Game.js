@@ -34,6 +34,9 @@ class Game {
         // The configuration object of the game
         this.config = new Config();
 
+        // Tower builder peasant
+        this.towerFactory = new TowerFactory(this);
+
         // Resize window event
         window.addEventListener("resize", () => {
             this.engine.resize();
@@ -116,21 +119,22 @@ class Game {
      * to be link with the config object
      */
     createTower(name) {
-        // Get tower type
-        if (this.config.towers[name]) {
-            console.log("YEAAAH", name);
-        }
 
-        // Check gold
-        //if (this._gold > 0) {
-        //    // Create tower
-        //    let tower = new Tower(this);
-        //    this.towers.push(tower);
-        //    this.gold -= 25;
-        //
-        //    // Make tower follow mouse cursor
-        //    this.mouse.followMouse = tower;
-        //}
+        let t = this.towerFactory.build(name);
+         // Check if player can buy this tower
+        if (t && this._gold - t.cost >= 0) {
+            // Create tower
+            t.init();
+
+            // Decrease gold amount
+            this.towers.push(t);
+            this.gold -= t.cost;
+
+            // Make tower follow mouse cursor
+            this.mouse.followMouse = t;
+        } else {
+
+        }
 
     }
 

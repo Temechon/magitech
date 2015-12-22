@@ -1,14 +1,13 @@
+// The function onload is loaded when the DOM has been loaded
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var count = 0;
-// The function onload is loaded when the DOM has been loaded
 window.addEventListener("DOMContentLoaded", function () {
     new Game('gamecanvas');
-    console.log("coucou", count++);
+    // TODO GAME LAUNCHED TWICE
 });
 
 var Game = (function () {
@@ -42,6 +41,9 @@ var Game = (function () {
 
         // The configuration object of the game
         this.config = new Config();
+
+        // Tower builder peasant
+        this.towerFactory = new TowerFactory(this);
 
         // Resize window event
         window.addEventListener("resize", function () {
@@ -131,21 +133,20 @@ var Game = (function () {
     }, {
         key: "createTower",
         value: function createTower(name) {
-            // Get tower type
-            if (this.config.towers[name]) {
-                console.log("YEAAAH", name);
-            }
 
-            // Check gold
-            //if (this._gold > 0) {
-            //    // Create tower
-            //    let tower = new Tower(this);
-            //    this.towers.push(tower);
-            //    this.gold -= 25;
-            //
-            //    // Make tower follow mouse cursor
-            //    this.mouse.followMouse = tower;
-            //}
+            var t = this.towerFactory.build(name);
+            // Check if player can buy this tower
+            if (t && this._gold - t.cost >= 0) {
+                // Create tower
+                t.init();
+
+                // Decrease gold amount
+                this.towers.push(t);
+                this.gold -= t.cost;
+
+                // Make tower follow mouse cursor
+                this.mouse.followMouse = t;
+            } else {}
         }
 
         /**

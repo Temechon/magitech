@@ -18,8 +18,6 @@ var Tower = (function (_GameObject) {
 
         this.position = BABYLON.Vector3.Zero();
 
-        this.isVisible = true;
-
         // The current cell of the tower. Null at start because the tower is not placed
         this._cell = null;
 
@@ -50,6 +48,14 @@ var Tower = (function (_GameObject) {
 
             // deactivate tower
             this.isActivated = false;
+        }
+
+        // Init this tower. Should be called when a tower can be built.
+    }, {
+        key: "init",
+        value: function init() {
+            this.isVisible = true;
+            // See implementation in childrens.
         }
     }, {
         key: "cell",

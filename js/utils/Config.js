@@ -5,19 +5,10 @@ class Config {
 
     constructor() {
 
-        // Contains all towers
-        this.towers = [];
-        this._tower("shooter", 25);
-        this._tower("generator", 50);
-
-
+        // Contains all towers name (that should match the name in the HTML file and in TowerFactory)
+        this.towers = [
+            'shooter',
+            'generator'
+        ]
     }
-
-    // Create a tower config object
-    _tower(name, price) {
-        this.towers[name] = {
-            price : price
-        };
-    }
-
 }

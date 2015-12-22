@@ -3,6 +3,9 @@ class ShootingTower extends Tower {
     constructor (game) {
         super(game);
 
+        this.name = 'Shooter Tower'; // Only here for debug purpose
+
+        // The tower cost. see superclass
         this.cost = 50;
 
         // True if the tower start to shoot, false otherwise
@@ -11,7 +14,14 @@ class ShootingTower extends Tower {
         // This tower will shoot every xx ms
         this.shootCadency = 500;
 
-        // Timer repeat indefinitely, each 500ms
+        // Timer repeat indefinitely, each Xms, where X is shootCadency
+        this.timer = null;
+
+    }
+
+
+    init() {
+        super.init();
         this.timer = new Timer(this.shootCadency, this.getScene(), {repeat:-1, autostart:true});
         this.timer.callback = () => {
             this.shoot();

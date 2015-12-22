@@ -5,8 +5,6 @@ class Tower extends GameObject{
 
         this.position = BABYLON.Vector3.Zero();
 
-        this.isVisible = true;
-
         // The current cell of the tower. Null at start because the tower is not placed
         this._cell = null;
 
@@ -43,5 +41,11 @@ class Tower extends GameObject{
 
         // deactivate tower
         this.isActivated = false;
+    }
+
+    // Init this tower. Should be called when a tower can be built.
+    init() {
+        this.isVisible = true;
+        // See implementation in childrens.
     }
 }
