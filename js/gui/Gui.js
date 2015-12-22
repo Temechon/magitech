@@ -13,11 +13,10 @@ class Gui {
 
     addAction() {
 
-        this.towers.each( (elem) => {
-            console.log("coucou");
-            //$(elem).click(() => {
-            //    this.game.createTower();
-            //});
+
+        // For Each tower button, add a click event on it
+        this.towers.on('click', (elem)=> {
+            console.log($(elem));
         });
 
         this.sendWaveButton.click(() => {

@@ -1,6 +1,7 @@
 // The function onload is loaded when the DOM has been loaded
 window.addEventListener("DOMContentLoaded", function() {
     new Game('gamecanvas');
+    // TODO GAME LAUNCHED TWICE
 });
 
 
@@ -111,21 +112,25 @@ class Game {
     }
 
     /**
-     * Create a tower if enough gold
+     * Create a tower if enough gold. The given parameter is the tower name,
+     * to be link with the config object
      */
-    createTower(type) {
+    createTower(name) {
         // Get tower type
+        if (this.config.towers[name]) {
+            console.log("YEAAAH", name);
+        }
 
         // Check gold
-        if (this._gold > 0) {
-            // Create tower
-            let tower = new Tower(this);
-            this.towers.push(tower);
-            this.gold -= 25;
-
-            // Make tower follow mouse cursor
-            this.mouse.followMouse = tower;
-        }
+        //if (this._gold > 0) {
+        //    // Create tower
+        //    let tower = new Tower(this);
+        //    this.towers.push(tower);
+        //    this.gold -= 25;
+        //
+        //    // Make tower follow mouse cursor
+        //    this.mouse.followMouse = tower;
+        //}
 
     }
 

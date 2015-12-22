@@ -1,12 +1,14 @@
-// The function onload is loaded when the DOM has been loaded
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var count = 0;
+// The function onload is loaded when the DOM has been loaded
 window.addEventListener("DOMContentLoaded", function () {
     new Game('gamecanvas');
+    console.log("coucou", count++);
 });
 
 var Game = (function () {
@@ -123,23 +125,27 @@ var Game = (function () {
         }
 
         /**
-         * Create a tower if enough gold
+         * Create a tower if enough gold. The given parameter is the tower name,
+         * to be link with the config object
          */
     }, {
         key: "createTower",
-        value: function createTower(type) {
+        value: function createTower(name) {
             // Get tower type
+            if (this.config.towers[name]) {
+                console.log("YEAAAH", name);
+            }
 
             // Check gold
-            if (this._gold > 0) {
-                // Create tower
-                var tower = new Tower(this);
-                this.towers.push(tower);
-                this.gold -= 25;
-
-                // Make tower follow mouse cursor
-                this.mouse.followMouse = tower;
-            }
+            //if (this._gold > 0) {
+            //    // Create tower
+            //    let tower = new Tower(this);
+            //    this.towers.push(tower);
+            //    this.gold -= 25;
+            //
+            //    // Make tower follow mouse cursor
+            //    this.mouse.followMouse = tower;
+            //}
         }
 
         /**

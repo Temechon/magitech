@@ -22,11 +22,9 @@ var Gui = (function () {
         value: function addAction() {
             var _this = this;
 
-            this.towers.each(function (elem) {
-                console.log("coucou");
-                //$(elem).click(() => {
-                //    this.game.createTower();
-                //});
+            // For Each tower button, add a click event on it
+            this.towers.on('click', function (elem) {
+                console.log($(elem));
             });
 
             this.sendWaveButton.click(function () {
