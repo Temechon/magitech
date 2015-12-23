@@ -30,7 +30,7 @@
  * Different kind of tower
     * Attack strategy ?
  * ~~Create a tower that generate gold every X seconds~~
- * Do not stop the generator when all enemies are killed
+ * ~~Do not stop the generator when all enemies are killed~~
 
 # Bullet
  * ~~Give a bullet a strength~~
@@ -39,6 +39,8 @@
 
 # Player
  * ~~Create a gold account~~
+ * Create a life point amounts
+   * If an enemy cross the finish line, it's over
 
 
 

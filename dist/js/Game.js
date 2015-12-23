@@ -236,42 +236,6 @@ var Game = (function () {
         }
 
         /**
-         * Returns the line corresponding to the given id
-         */
-    }, {
-        key: "getLineById",
-        value: function getLineById(id) {
-            var _iteratorNormalCompletion3 = true;
-            var _didIteratorError3 = false;
-            var _iteratorError3 = undefined;
-
-            try {
-                for (var _iterator3 = this.lines[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                    var l = _step3.value;
-
-                    if (id == l.id) {
-                        return l;
-                    }
-                }
-            } catch (err) {
-                _didIteratorError3 = true;
-                _iteratorError3 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion3 && _iterator3["return"]) {
-                        _iterator3["return"]();
-                    }
-                } finally {
-                    if (_didIteratorError3) {
-                        throw _iteratorError3;
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        /**
          * Update the GUI
          */
     }, {
