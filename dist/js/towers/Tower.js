@@ -16,17 +16,11 @@ var Tower = (function (_GameObject) {
 
         _get(Object.getPrototypeOf(Tower.prototype), "constructor", this).call(this, game);
 
-        this.position = BABYLON.Vector3.Zero();
-
         // The current cell of the tower. Null at start because the tower is not placed
         this._cell = null;
 
         // The build cost of this tower
         this.cost = 0;
-
-        // A cell is a squared plane
-        var vd = BABYLON.VertexData.CreateBox({ width: 0.5, height: 1.5, depth: 0.5 });
-        vd.applyToMesh(this, false);
     }
 
     /**
@@ -50,12 +44,23 @@ var Tower = (function (_GameObject) {
             this.isActivated = false;
         }
 
-        // Init this tower. Should be called when a tower can be built.
+        /**
+         * Init this tower. This method is called when the tower
+         * is placed on its cell.
+         */
     }, {
         key: "init",
-        value: function init() {
-            this.isVisible = true;
-            // See implementation in childrens.
+        value: function init() {}
+        // See implementation in children.
+
+        /**
+         * Build this tower: create the mesh corresponding to this tower
+         */
+
+    }, {
+        key: "build",
+        value: function build() {
+            // See implementation in children.
         }
     }, {
         key: "cell",

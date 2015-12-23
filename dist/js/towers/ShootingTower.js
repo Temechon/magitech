@@ -32,11 +32,20 @@ var ShootingTower = (function (_Tower) {
     }
 
     _createClass(ShootingTower, [{
+        key: 'build',
+        value: function build() {
+            _get(Object.getPrototypeOf(ShootingTower.prototype), 'build', this).call(this);
+
+            // Import shooter asset
+            this.addInstanceChild(this.game.assets['shooter']);
+        }
+    }, {
         key: 'init',
         value: function init() {
             var _this = this;
 
             _get(Object.getPrototypeOf(ShootingTower.prototype), 'init', this).call(this);
+
             this.timer = new Timer(this.shootCadency, this.getScene(), { repeat: -1, autostart: true });
             this.timer.callback = function () {
                 _this.shoot();

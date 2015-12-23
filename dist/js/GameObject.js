@@ -35,11 +35,34 @@ var GameObject = (function (_BABYLON$Mesh) {
                 child.computeWorldMatrix(true);
             });
         }
+
+        /**
+         * Create an instance of the given meshes and link them to this game object (by adding
+         * them in children).
+         * Child is a mesh or an array of meshes
+         */
     }, {
-        key: "addChildren",
-        value: function addChildren(child) {
-            child.parent = this;
-            this._children.push(child);
+        key: "addInstanceChild",
+        value: function addInstanceChild(child) {
+            var _this = this;
+
+            var children = undefined;
+
+            if (!(child instanceof Array)) {
+                children = [child];
+            } else {
+                children = child;
+            }
+
+            children.forEach(function (elem) {
+                if (elem instanceof BABYLON.Mesh) {
+                    var instance = elem.createInstance(elem.name);
+                    instance.parent = _this;
+                    _this._children.push(instance);
+                } else {
+                    console.warn(elem + " is not a mesh!");
+                }
+            });
         }
     }, {
         key: "isCollidingWith",

@@ -66,6 +66,9 @@ class MouseHandler {
                     // Affect cell to tower
                     this.followMouse.cell = c;
 
+                    // Call initialization method on the tower
+                    this.followMouse.init();
+
                     // Remove tower from mousemove
                     this.followMouse = null;
                     this.isPlacingTower = false;

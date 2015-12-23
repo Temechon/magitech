@@ -7,7 +7,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 window.addEventListener("DOMContentLoaded", function () {
     new Game('gamecanvas');
-    // TODO GAME LAUNCHED TWICE
 });
 
 var Game = (function () {
@@ -25,7 +24,13 @@ var Game = (function () {
         // The state scene
         this.scene = null;
 
+        // Game GUI
         this.gui = new Gui(this);
+
+        // Assets loader - define in the this.run()
+        this.loader = null;
+
+        // Handle mouse actions
         this.mouse = new MouseHandler(this);
         // Contains the x lines of the game
         this.lines = [];
@@ -72,28 +77,24 @@ var Game = (function () {
         value: function run() {
             var _this2 = this;
 
+            // Init the scene
             this.scene = this._initScene();
 
-            // The loader
-            var loader = new BABYLON.AssetsManager(this.scene);
+            this.loader = new Loader(this);
 
-            //    var meshTask = this.loader.addMeshTask("skull task", "", "./assets/", "block02.babylon");
-            //    meshTask.onSuccess = this._initMesh;
-
-            loader.onFinish = function () {
+            // Rune the loader
+            this.loader.onFinish = function () {
 
                 // Init the game
                 _this2._initGame();
-
-                // The state is ready to be played
-                _this2.isReady = true;
 
                 _this2.engine.runRenderLoop(function () {
                     _this2.scene.render();
                 });
             };
 
-            loader.load();
+            // Start it!
+            this.loader.load();
         }
     }, {
         key: "_initGame",
@@ -138,7 +139,7 @@ var Game = (function () {
             // Check if player can buy this tower
             if (t && this._gold - t.cost >= 0) {
                 // Create tower
-                t.init();
+                t.build();
 
                 // Decrease gold amount
                 this.towers.push(t);

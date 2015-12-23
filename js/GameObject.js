@@ -20,9 +20,29 @@ class GameObject extends BABYLON.Mesh {
         });
     }
 
-    addChildren(child) {
-        child.parent = this;
-        this._children.push(child);
+    /**
+     * Create an instance of the given meshes and link them to this game object (by adding
+     * them in children).
+     * Child is a mesh or an array of meshes
+     */
+    addInstanceChild(child) {
+        let children;
+
+        if (! (child instanceof Array)) {
+            children = [child];
+        } else {
+            children = child;
+        }
+
+        children.forEach((elem) => {
+            if (elem instanceof BABYLON.Mesh) {
+                let instance = elem.createInstance(elem.name);
+                instance.parent = this;
+                this._children.push(instance);
+            } else {
+                console.warn(`${elem} is not a mesh!`);
+            }
+        });
     }
 
     isCollidingWith(other) {

@@ -1,7 +1,6 @@
 // The function onload is loaded when the DOM has been loaded
 window.addEventListener("DOMContentLoaded", function() {
     new Game('gamecanvas');
-    // TODO GAME LAUNCHED TWICE
 });
 
 
@@ -17,7 +16,13 @@ class Game {
         // The state scene
         this.scene   = null;
 
+        // Game GUI
         this.gui = new Gui(this);
+
+        // Assets loader - define in the this.run()
+        this.loader = null;
+
+        // Handle mouse actions
         this.mouse = new MouseHandler(this);
         // Contains the x lines of the game
         this.lines = [];
@@ -60,28 +65,24 @@ class Game {
 
     run() {
 
+        // Init the scene
         this.scene = this._initScene();
 
-        // The loader
-        let loader =  new BABYLON.AssetsManager(this.scene);
+        this.loader = new Loader(this);
 
-        //    var meshTask = this.loader.addMeshTask("skull task", "", "./assets/", "block02.babylon");
-        //    meshTask.onSuccess = this._initMesh;
-
-        loader.onFinish = () => {
+        // Rune the loader
+        this.loader.onFinish = () => {
 
             // Init the game
             this._initGame();
-
-            // The state is ready to be played
-            this.isReady = true;
 
             this.engine.runRenderLoop(() => {
                 this.scene.render();
             });
         };
 
-        loader.load();
+        // Start it!
+        this.loader.load();
     }
 
     _initGame() {
@@ -124,7 +125,7 @@ class Game {
          // Check if player can buy this tower
         if (t && this._gold - t.cost >= 0) {
             // Create tower
-            t.init();
+            t.build();
 
             // Decrease gold amount
             this.towers.push(t);

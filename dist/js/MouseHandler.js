@@ -90,6 +90,9 @@ var MouseHandler = (function () {
                     // Affect cell to tower
                     _this.followMouse.cell = c;
 
+                    // Call initialization method on the tower
+                    _this.followMouse.init();
+
                     // Remove tower from mousemove
                     _this.followMouse = null;
                     _this.isPlacingTower = false;

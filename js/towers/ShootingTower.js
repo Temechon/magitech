@@ -19,9 +19,17 @@ class ShootingTower extends Tower {
 
     }
 
+    build() {
+        super.build();
+
+        // Import shooter asset
+        this.addInstanceChild(this.game.assets['shooter']);
+    }
+
 
     init() {
         super.init();
+
         this.timer = new Timer(this.shootCadency, this.getScene(), {repeat:-1, autostart:true});
         this.timer.callback = () => {
             this.shoot();
