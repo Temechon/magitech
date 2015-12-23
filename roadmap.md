@@ -29,7 +29,8 @@
  * ~~A tower costs gold to be built (decreased from the player account)~~
  * Different kind of tower
     * Attack strategy ?
- * Create a tower that generate gold every X seconds
+ * ~~Create a tower that generate gold every X seconds~~
+ * Do not stop the generator when all enemies are killed
 
 # Bullet
  * ~~Give a bullet a strength~~

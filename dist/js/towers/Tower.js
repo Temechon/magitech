@@ -21,6 +21,10 @@ var Tower = (function (_GameObject) {
 
         // The build cost of this tower
         this.cost = 0;
+
+        // If true, this tower can start attacking the enemy.
+        // Does nothing for generator towers.
+        this.isActivated = false;
     }
 
     /**

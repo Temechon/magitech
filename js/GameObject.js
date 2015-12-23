@@ -37,6 +37,7 @@ class GameObject extends BABYLON.Mesh {
         children.forEach((elem) => {
             if (elem instanceof BABYLON.Mesh) {
                 let instance = elem.createInstance(elem.name);
+                instance.isPickable = true;
                 instance.parent = this;
                 this._children.push(instance);
             } else {

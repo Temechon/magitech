@@ -57,6 +57,7 @@ var GameObject = (function (_BABYLON$Mesh) {
             children.forEach(function (elem) {
                 if (elem instanceof BABYLON.Mesh) {
                     var instance = elem.createInstance(elem.name);
+                    instance.isPickable = true;
                     instance.parent = _this;
                     _this._children.push(instance);
                 } else {

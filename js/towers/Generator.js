@@ -12,6 +12,9 @@ class Generator extends Tower {
         // Timer repeat indefinitely, each Xms, where X is goldCadency
         this.timer = null;
 
+        // True if the tower can start generate gold, false otherwise
+        this.canGenerateGold = false;
+
     }
 
     init() {
@@ -28,14 +31,21 @@ class Generator extends Tower {
 
         // Import generator asset
         this.addInstanceChild(this.game.assets['generator']);
+
+        // This tower has been placed: start gold generation
+        this.canGenerateGold = true;
     }
 
     /**
      * Generate gold
      */
     generateGold() {
-        if (this.isActivated) {
+        if (this.canGenerateGold) {
             this.game.gold += 15;
         }
+    }
+
+    debug() {
+        return `canGenerateGold : ${this.canGenerateGold}`;
     }
 }

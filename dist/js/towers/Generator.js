@@ -25,6 +25,9 @@ var Generator = (function (_Tower) {
 
         // Timer repeat indefinitely, each Xms, where X is goldCadency
         this.timer = null;
+
+        // True if the tower can start generate gold, false otherwise
+        this.canGenerateGold = false;
     }
 
     _createClass(Generator, [{
@@ -46,6 +49,9 @@ var Generator = (function (_Tower) {
 
             // Import generator asset
             this.addInstanceChild(this.game.assets['generator']);
+
+            // This tower has been placed: start gold generation
+            this.canGenerateGold = true;
         }
 
         /**
@@ -54,9 +60,14 @@ var Generator = (function (_Tower) {
     }, {
         key: 'generateGold',
         value: function generateGold() {
-            if (this.isActivated) {
+            if (this.canGenerateGold) {
                 this.game.gold += 15;
             }
+        }
+    }, {
+        key: 'debug',
+        value: function debug() {
+            return 'canGenerateGold : ' + this.canGenerateGold;
         }
     }]);
 

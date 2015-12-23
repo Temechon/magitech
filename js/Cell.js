@@ -33,8 +33,7 @@ class Cell extends GameObject{
 
 
     debug() {
-        return `is empty : ${this.isEmpty()}\n
-        hot : ${this.line.isHot}`
+        return `is empty : ${this.isEmpty()}, hot : ${this.line.isHot}`
     }
 
 }

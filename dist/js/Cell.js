@@ -49,7 +49,7 @@ var Cell = (function (_GameObject) {
     }, {
         key: "debug",
         value: function debug() {
-            return "is empty : " + this.isEmpty() + "\n\n        hot : " + this.line.isHot;
+            return "is empty : " + this.isEmpty() + ", hot : " + this.line.isHot;
         }
     }]);
 
