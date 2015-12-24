@@ -41,6 +41,6 @@
  * ~~Create a gold account~~
  * Create a life point amounts
    * If an enemy cross the finish line, it's over
-
+   * Deactivate all lines where the enemy crossed the finish line
 
 
