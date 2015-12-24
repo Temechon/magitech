@@ -57,6 +57,9 @@ class Game {
         camera.rotation = new BABYLON.Vector3(1, 0, 0);
         camera.attachControl(this.engine.getRenderingCanvas());
 
+        // Init several materials used by cells and others
+        this._initMaterials(scene);
+
         // Hemispheric light to light the scene
         let h = new BABYLON.HemisphericLight("hemi", new BABYLON.Vector3(0,1,0), scene);
         h.intensity = 0.9;
@@ -184,6 +187,18 @@ class Game {
      */
     updateGui() {
         this.gui.refresh();
+    }
+
+    /**
+     * Init materials used by cells
+     */
+    _initMaterials (scene) {
+        let darkColors = randomColor({hue: 'purple', luminosity:'dark', count: 2});
+        let lightColors = randomColor({hue: 'purple', luminosity:'light', count: 2});
+
+        let dark1 = new BABYLON.StandardMaterial("dark1", scene);
+        dark1.diffuseColor = BABYLON.Color3.FromHexString(darkColors[0]);
+
     }
 
     /*** GETTER SETTER **/
