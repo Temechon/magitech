@@ -48,6 +48,9 @@ class WaveManager {
 
             // Save the enemy that has been sent
             this.enemiesSent.push(obj);
+
+            // Update gui
+            this.game.gui.updateWavePointer(this.getWavePercentage());
         };
         t.onFinish = () => {
             // Remove all enemies to send, cause all enemies have been sent :)
@@ -61,7 +64,6 @@ class WaveManager {
      * If a line has no more enemy walking, deactivate the line
      */
     removeEnemy(enemy) {
-        let line = null;
         for (let i=0; i<this.enemiesSent.length; i++) {
             let obj = this.enemiesSent[i];
             if (obj.enemy === enemy) {
@@ -74,8 +76,6 @@ class WaveManager {
                 break;
             }
         }
-
-
     }
 
     /**
@@ -90,5 +90,13 @@ class WaveManager {
         }
 
         return sum;
+    }
+
+    /**
+     * Returns the current percentage of this wave. At 100%,
+     * all enemies have been sent.
+     */
+    getWavePercentage() {
+        return this.enemiesSent.length / this.enemiesToSend.length;
     }
 }

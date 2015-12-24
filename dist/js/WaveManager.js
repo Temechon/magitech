@@ -59,6 +59,9 @@ var WaveManager = (function () {
 
                 // Save the enemy that has been sent
                 _this.enemiesSent.push(obj);
+
+                // Update gui
+                _this.game.gui.updateWavePointer(_this.getWavePercentage());
             };
             t.onFinish = function () {
                 // Remove all enemies to send, cause all enemies have been sent :)
@@ -74,7 +77,6 @@ var WaveManager = (function () {
     }, {
         key: "removeEnemy",
         value: function removeEnemy(enemy) {
-            var line = null;
             for (var i = 0; i < this.enemiesSent.length; i++) {
                 var obj = this.enemiesSent[i];
                 if (obj.enemy === enemy) {
@@ -124,6 +126,16 @@ var WaveManager = (function () {
             }
 
             return sum;
+        }
+
+        /**
+         * Returns the current percentage of this wave. At 100%,
+         * all enemies have been sent.
+         */
+    }, {
+        key: "getWavePercentage",
+        value: function getWavePercentage() {
+            return this.enemiesSent.length / this.enemiesToSend.length;
         }
     }]);
 

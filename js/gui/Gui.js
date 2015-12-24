@@ -7,6 +7,14 @@ class Gui {
         this.sendWaveButton = $('#send-wave');
         this.goldLabel = $('#gold');
 
+        // The wave progress
+        this.wavePointer = $('#wave-pointer');
+        // Get the length of the wave indicator
+        this.waveIndicatorLength = this.wavePointer
+            .parent() // get parent node
+            .css('width') // get width '300px'
+            .slice(0,-2); // chop last two characters
+
         this.addAction();
 
     }
@@ -30,5 +38,12 @@ class Gui {
      */
     refresh() {
         this.goldLabel.text(this.game.gold);
+    }
+
+    /**
+     * Refresh the wave pointer indicating the current state of the wave
+     */
+    updateWavePointer(percentage) {
+        this.wavePointer.css('right', this.waveIndicatorLength * percentage);
     }
 }

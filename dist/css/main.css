@@ -17,8 +17,25 @@ html, body {
   left: 0;
   pointer-events: none; }
   .gamegui .top-banner {
-    margin-left: 150px;
+    position: relative;
+    width: 100%;
     height: 80px; }
+    .gamegui .top-banner .wave-indicator {
+      width: 300px;
+      height: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+              transform: translateX(-50%); }
+      .gamegui .top-banner .wave-indicator .wave-pointer {
+        width: 10px;
+        height: 30px;
+        background-color: darkred;
+        position: absolute;
+        top: -10px;
+        right: 0; }
     .gamegui .top-banner .top-button {
       pointer-events: all;
       background-color: #2D2D37;

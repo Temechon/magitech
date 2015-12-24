@@ -115,7 +115,9 @@ var Game = (function () {
                 pos.z += 1;
             }
 
+            // Update the GUI the first time
             this.updateGui();
+
             window.addEventListener("keydown", function (evt) {
                 if (evt.keyCode == 32) {
                     if (_this3.scene.debugLayer._enabled) {

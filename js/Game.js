@@ -102,8 +102,9 @@ class Game {
             pos.z += 1;
         }
 
-
+        // Update the GUI the first time
         this.updateGui();
+
         window.addEventListener("keydown", (evt) => {
             if (evt.keyCode == 32) {
                 if (this.scene.debugLayer._enabled) {

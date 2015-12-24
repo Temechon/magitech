@@ -8,10 +8,31 @@
   pointer-events: none;
 
   .top-banner {
+    position:relative;
     $height : 80px;
-
-    margin-left : 150px;
+    width:100%;
     height:$height;
+
+    // The wave timeline
+    .wave-indicator {
+      width:300px;
+      height:10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      position:absolute;
+      top : 30px;
+      left:50%;
+      transform: translateX(-50%);
+
+      // The wave pointer will move according to the current wave position
+      .wave-pointer {
+        width:10px;
+        height:30px;
+        background-color: darkred;
+        position:absolute;
+        top:-10px;
+        right:0;
+      }
+    }
 
     .top-button {
       $size : 150px;
